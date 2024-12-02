@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Content Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            padding-top: 50px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        #content {
+            padding: 20px;
+            border-top: 2px solid #007bff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Category Content</h1>
+        <div id="content">
+            <p>Loading content...</p>
+        </div>
+    </div>
+
+    <script>
+        // Function to extract query parameter from URL
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Load content based on the category parameter in the URL
+        window.onload = function() {
+            const category = getQueryParameter('category');
+            const contentDiv = document.getElementById('content');
+
+            if (category === 'Greetings+Basics') {
+                contentDiv.innerHTML = '<h2>Greetings + Basics</h2><p>This is the content for Greetings + Basics.</p>';
+            } else if (category === 'Body+Parts+1+A-H') {
+                contentDiv.innerHTML = '<h2>Body Parts 1 (A-H)</h2><p>This is the content for Body Parts 1 (A-H).</p>';
+            } else if (category === 'Body+Parts+2+J-Z') {
+                contentDiv.innerHTML = '<h2>Body Parts 2 (J-Z)</h2><p>This is the content for Body Parts 2 (J-Z).</p>';
+            } else {
+                contentDiv.innerHTML = '<h2>Content not found</h2><p>The requested content could not be found.</p>';
+            }
+        };
+    </script>
+</body>
+</html>

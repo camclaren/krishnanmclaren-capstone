@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Content Example</title>
+  <style>
+    #content {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Landing Page</h1>
+  <div>
+    <button onclick="loadContent('content1')">Content 1</button>
+    <button onclick="loadContent('content2')">Content 2</button>
+    <button onclick="loadContent('content3')">Content 3</button>
+  </div>
+
+  <div id="content">
+    <p>Select a button to view content.</p>
+  </div>
+
+  <script>
+    // JavaScript function to load different content based on button clicked
+    function loadContent(contentId) {
+      const contentDiv = document.getElementById('content');
+      if (contentId === 'content1') {
+        contentDiv.innerHTML = '<h2>Content 1</h2><p>This is the first content that is shown when the first button is clicked.</p>';
+      } else if (contentId === 'content2') {
+        contentDiv.innerHTML = '<h2>Content 2</h2><p>This is the second content shown when the second button is clicked.</p>';
+      } else if (contentId === 'content3') {
+        contentDiv.innerHTML = '<h2>Content 3</h2><p>This is the third content displayed when the third button is clicked.</p>';
+      }
+    }
+  </script>
+</body>
+</html>
