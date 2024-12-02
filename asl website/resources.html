@@ -29,26 +29,53 @@
         .item:hover {
             transform: scale(1.05);
         }
-        .resized-image {
+        .img-with-text {
             width: 100%;
             height: auto;
             margin-bottom: 20px;
+            text-align: center;
         }
-        .term {
-            padding: 15px;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #333;
+
+        .home-btn {
+            display: inline-block; /* Keep buttons inline */
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px; /* Smaller button size */
+            margin: 10px; /* Space between buttons */
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px; /* Adjust font size */
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box; /* Ensure padding is accounted for */
         }
+        .home-btn:hover {
+            background-color: #0056b3;
+        }
+        .home-btn-container {
+            margin-bottom: 20px; /* Add some space below the buttons */
+            text-align: center; /* Center the buttons horizontally */
+        }
+
     </style>
 </head>
 <body>
 
+<!-- Buttons above the image -->
+<div class="home-btn-container">
+    <a href="lp2.html" class="home-btn">Home</a> <!-- Home Button -->
+    <a href="landing_page.html" class="home-btn">About</a> <!-- About Button -->
+    <a href="resources.html" class="home-btn">Resources</a> <!-- Resources Button-->
+</div>
+
+<!-- Main Content -->
 <div class="container">
-    <!-- ASL Alphabet Image -->
-    <div class="img-with-text">
-        <img src="alphabet.jpg" alt="ASL Alphabet Images" />
-        <p>ASL Alphabet</p>
+    <div class="item">
+        <!-- ASL Alphabet Image -->
+        <div class="img-with-text">
+            <h1>ASL Alphabet</h1>
+            <img src="alphabet.jpg" alt="ASL Alphabet Images" />
+        </div>
     </div>
 </div>
 
