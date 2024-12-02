@@ -3,108 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms and Videos</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to our Handbook!</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            padding-top: 50px;
         }
+
         .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: auto;
-        }
-        .item {
-            background-color: #fff;
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            text-align: center;
-            transition: transform 0.2s;
         }
-        .item:hover {
-            transform: scale(1.05);
-        }
-        .image {
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-        .video-container {
-            width: 100%;
-            height: 150px;
-            overflow: hidden;
-        }
-        .video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .term {
-            padding: 15px;
-            font-size: 1.1em;
-            font-weight: bold;
+
+        h1 {
             color: #333;
+            text-align: center;
         }
+
+        p {
+            text-align: center;
+        }
+
+        .btn-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .btn-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-right: 10px;
+            flex-grow: 1;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .checkbox-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .checkbox-container input {
+            margin-right: 5px;
+        }
+
+        .home-btn {
+            display: inline-block; /* Keep buttons inline */
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px; /* Smaller button size */
+            margin: 10px; /* Space between buttons */
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px; /* Adjust font size */
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box; /* Ensure padding is accounted for */
+        }
+        
+        .home-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .home-btn-container {
+            margin-bottom: 20px; /* Add some space below the buttons */
+            text-align: center; /* Center the buttons horizontally */
+        }
+
     </style>
 </head>
 <body>
-
-<h1>ASL Alphabet and Terms</h1>
-
-<!-- ASL Alphabet Image -->
-<div class="container">
-    <div class="item">
-        <img src="/Users/madhangikrishnan/Downloads/sign-language-alphabet.png" alt="The Full ASL Alphabet" class="image">
-    </div>
-</div>
-
-<!-- Terms and Videos Section -->
-<h2>Terms and Videos</h2>
-<div class="container">
-    <!-- Repeat this block for each term and video pair -->
-    <div class="item">
-        <div class="video-container">
-            <video src="video1.mp4" class="video" controls></video>
+    <div class="container">
+        <div class="home-btn-container">
+            <a href="home.html" class="home-btn">Home</a> <!-- Home Button -->
+            <a href="about.html" class="home-btn">About</a> <!-- About Button -->
+            <a href="resources.html" class="home-btn">Resources</a> <!-- Resources Button-->
         </div>
-        <div class="term">BLOOD</div>
+        <h1>Welcome!!</h1>
+        <p>Click on a category of words to get started</p>
+        <ul class="btn-list">
+            <!-- List of buttons linking to another page with query parameters -->
+            <li class="btn-item">
+                <a href="content.html?category=Greetings+Basics" class="btn">Greetings & Basics</a>
+                <div class="checkbox-container">
+                    <label><input type="checkbox" class="checkbox-1"> Viewed</label>
+                    <label><input type="checkbox" class="checkbox-2"> Tested</label>
+                </div>
+            </li>
+            <li class="btn-item">
+                <a href="content.html?category=Body+Parts+1+A-H" class="btn">Body Parts 1 (A-H)</a>
+                <div class="checkbox-container">
+                    <label><input type="checkbox" class="checkbox-1"> Viewed</label>
+                    <label><input type="checkbox" class="checkbox-2"> Tested</label>
+                </div>
+            </li>
+            <li class="btn-item">
+                <a href="content.html?category=Body+Parts+2+J-Z" class="btn">Body Parts 2 (J-Z)</a>
+                <div class="checkbox-container">
+                    <label><input type="checkbox" class="checkbox-1"> Viewed</label>
+                    <label><input type="checkbox" class="checkbox-2"> Tested</label>
+                </div>
+            </li>
+        </ul>
     </div>
-    <div class="item">
-        <div class="video-container">
-            <video src="video2.mp4" class="video" controls></video>
-        </div>
-        <div class="term">DEATH</div>
-    </div>
-    <div class="item">
-        <div class="video-container">
-            <video src="video1.mp4" class="video" controls></video>
-        </div>
-        <div class="term">TEARS</div>
-    </div>
-    <div class="item">
-        <div class="video-container">
-            <video src="video2.mp4" class="video" controls></video>
-        </div>
-        <div class="term">SWEAT</div>
-    </div>
-    <div class="item">
-        <div class="video-container">
-            <video src="video1.mp4" class="video" controls></video>
-        </div>
-        <div class="term">IVF GITHUB BABY</div>
-    </div>
-    <div class="item">
-        <div class="video-container">
-            <video src="video2.mp4" class="video" controls></video>
-        </div>
-        <div class="term">MORE BLOOD</div>
-    </div>
-    <!-- Add more items as needed -->
-</div>
-
 </body>
 </html>
