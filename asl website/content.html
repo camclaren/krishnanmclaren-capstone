@@ -16,8 +16,9 @@
             align-items: flex-start;
             height: 100vh;
             padding-top: 50px;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
         }
-
+        
         .container {
             width: 90%;
             max-width: 600px;
@@ -25,31 +26,60 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box; /* Avoid extra width from padding */
+            text-align: center; /* Center align text in the container */
         }
-
+        
         h1 {
             color: #333;
-            text-align: center;
+            margin-bottom: 20px; /* Ensure some space below the heading */
         }
-
+        
         p {
             text-align: center;
         }
-
+        
         #content {
             padding: 20px;
             border-top: 2px solid #007bff;
             margin-top: 20px;
         }
+        
+        .home-btn {
+            display: inline-block; /* Keep buttons inline */
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px; /* Smaller button size */
+            margin: 10px; /* Space between buttons */
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px; /* Adjust font size */
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box; /* Ensure padding is accounted for */
+        }
+        
+        .home-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .home-btn-container {
+            margin-bottom: 20px; /* Add some space below the buttons */
+            text-align: center; /* Center the buttons horizontally */
+        }
+        
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="home-btn-container">
+        <a href="lp2.html" class="home-btn">Home</a> <!-- Home Button -->
+        <a href="landing_page.html" class="home-btn">About</a> <!-- About Button -->
+    </div>
         <h1>Vocabulary</h1>
         <div id="content">
             <p>Loading content...</p>
         </div>
-    </div>
+    
 
     <script>
         // Add this log to verify if the script is loading
@@ -88,6 +118,16 @@
                 } else if (decodedCategory === 'Body Parts 2 J-Z') {
                     filePath = 'body-parts-2.html';  // File for Greetings + Basics
                     // contentDiv.innerHTML = '<h2>Body Parts 2 (J-Z)</h2><p>This is the content for Body Parts 2 (J-Z).</p>';
+                } if (filePath) {
+                    fetch(filePath)
+                        .then(response => response.text())
+                        .then(data => {
+                            contentDiv.innerHTML = data;  // Insert fetched content
+                        })
+                        .catch(error => {
+                            contentDiv.innerHTML = '<h2>Error loading content</h2><p>Sorry, there was an error fetching the content.</p>';
+                            console.error('Error fetching content:', error);
+                        });
                 } else {
                     contentDiv.innerHTML = '<h2>Content not found</h2><p>The requested content could not be found.</p>';
                 }
