@@ -66,11 +66,11 @@
             if (category) {
                 const decodedCategory = decodeURIComponent(category); // Decode any URL encoding (e.g., + becomes space)
                 
-                if (decodedCategory === 'Greetings & Basics') {
+                if (decodedCategory === 'Greetings Basics') {
                     contentDiv.innerHTML = '<h2>Greetings & Basics</h2><p>This is the content for Greetings + Basics.</p>';
-                } else if (decodedCategory === 'Body Parts 1 (A-H)') {
+                } else if (decodedCategory === 'Body Parts 1 A-H') {
                     contentDiv.innerHTML = '<h2>Body Parts 1 (A-H)</h2><p>This is the content for Body Parts 1 (A-H).</p>';
-                } else if (decodedCategory === 'Body Parts 2 (J-Z)') {
+                } else if (decodedCategory === 'Body Parts 2 J-Z') {
                     contentDiv.innerHTML = '<h2>Body Parts 2 (J-Z)</h2><p>This is the content for Body Parts 2 (J-Z).</p>';
                 } else {
                     contentDiv.innerHTML = '<h2>Content not found</h2><p>The requested content could not be found.</p>';
