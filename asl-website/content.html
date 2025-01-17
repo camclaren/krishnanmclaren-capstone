@@ -13,12 +13,49 @@
             background-color: #f4f4f9;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             height: 100vh;
-            padding-top: 50px;
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            flex-direction: column;
         }
-        
+
+        header {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #cce7ff;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
+
         .container {
             width: 90%;
             max-width: 600px;
@@ -26,61 +63,81 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box; /* Avoid extra width from padding */
-            text-align: center; /* Center align text in the container */
+            text-align: center;
         }
-        
+
         h1 {
             color: #333;
-            margin-bottom: 20px; /* Ensure some space below the heading */
+            text-align: center;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
-        
+
         p {
             text-align: center;
         }
-        
-        #content {
-            padding: 20px;
-            border-top: 2px solid #007bff;
-            margin-top: 20px;
+
+        .btn-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
-        
-        .home-btn {
-            display: inline-block; /* Keep buttons inline */
-            background-color: #007bff;
+
+        .btn-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn {
+            background-color: #700404;
             color: white;
-            padding: 8px 15px; /* Smaller button size */
-            margin: 10px; /* Space between buttons */
-            text-decoration: none;
+            padding: 12px 20px;
+            border: none;
             border-radius: 5px;
-            font-size: 14px; /* Adjust font size */
+            text-decoration: none;
+            font-size: 16px;
+            margin-right: 10px;
+            flex-grow: 1;
             text-align: center;
-            transition: background-color 0.3s ease;
-            box-sizing: border-box; /* Ensure padding is accounted for */
+            transition: background-color 0.3s;
         }
-        
-        .home-btn:hover {
+
+        .btn:hover {
             background-color: #0056b3;
         }
-        
-        .home-btn-container {
-            margin-bottom: 20px; /* Add some space below the buttons */
-            text-align: center; /* Center the buttons horizontally */
+
+        .checkbox-container {
+            display: flex;
+            gap: 10px;
         }
-        
+
+        .checkbox-container input {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
-    <div class="home-btn-container">
-        <a href="home.html" class="home-btn">Home</a> <!-- Home Button -->
-        <a href="about.html" class="home-btn">About</a> <!-- About Button -->
-        <a href="resources.html" class="home-btn">Resources</a> <!-- Resources Button-->
+    <header>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="resources.html">Resources</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <body>
+            <h1>Vocabulary</h1>
+            <div id="content">
+                <p>Loading content...</p>
+            </div>
     </div>
-        <h1>Vocabulary</h1>
-        <div id="content">
-            <p>Loading content...</p>
-        </div>
+
+    <footer>
+        <p>&copy; 2025 KrishnanMcLaren. All Rights Reserved.</p>
+    </footer>
     
 
     <script>

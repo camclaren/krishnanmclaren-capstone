@@ -8,101 +8,135 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0; /* Remove padding */
-            background-color: #f5f5f5;
+            padding: 0;
+            background-color: #f4f4f9;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             flex-direction: column;
-            align-items: center; /* Center horizontally */
         }
 
-        /* Button container styling */
-        .home-btn-container {
-            margin-bottom: 30px; /* Space below the buttons */
-            text-align: center; /* Center the buttons */
-            width: 100%; /* Ensure full width */
-            display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Align vertically */
-        }
-
-        .home-btn {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            padding: 8px 15px;
-            margin: 10px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
-
-        .home-btn:hover {
-            background-color: #0056b3;
-        }
-
-        /* Container for terms and videos */
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto; /* Center the container */
+        header {
             width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
         }
 
-        /* Styling for each term and video item */
-        .item {
-            background-color: #fff;
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #cce7ff;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
             text-align: center;
-            transition: transform 0.2s;
         }
 
-        .item:hover {
-            transform: scale(1.05);
-        }
-
-        /* Styling for the videos */
-        .video-container {
-            width: 100%;
-            height: 150px;
-            overflow: hidden;
-        }
-
-        .video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Styling for the terms */
-        .term {
-            padding: 15px;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* Title styling */
         h1 {
+            color: #333;
             text-align: center;
-            width: 100%;
-            margin-bottom: 40px; /* Space below the title */
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
+        p {
+            text-align: center;
+        }
+
+        .btn-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .btn-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn {
+            background-color: #700404;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-right: 10px;
+            flex-grow: 1;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #8b7a74;
+        }
+
+        .checkbox-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .checkbox-container input {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="resources.html">Resources</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
 
-<!-- Button Section (Centered) -->
-<div class="home-btn-container">
-    <a href="home.html" class="home-btn">Home</a> <!-- Home Button -->
-    <a href="about.html" class="home-btn">About</a> <!-- About Button -->
-    <a href="resources.html" class="home-btn">Resources</a> <!-- Resources Button-->
-</div>
+    <body>
+            <h1>Vocabulary</h1>
+            <div id="content">
+                <p>Loading content...</p>
+            </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 KrishnanMcLaren. All Rights Reserved.</p>
+    </footer>
 
 <!-- Main Content Section (Terms and Videos) -->
 <h1>Terms and Videos</h1>

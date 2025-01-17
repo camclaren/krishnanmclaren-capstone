@@ -13,9 +13,47 @@
             background-color: #f4f4f9;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             height: 100vh;
-            padding-top: 50px;
+            flex-direction: column;
+        }
+
+        header {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #cce7ff;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
         }
 
         .container {
@@ -25,6 +63,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         h1 {
@@ -52,7 +91,7 @@
         }
 
         .btn {
-            background-color: #007bff;
+            background-color: #700404;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -77,43 +116,22 @@
         .checkbox-container input {
             margin-right: 5px;
         }
-
-        .home-btn {
-            display: inline-block; /* Keep buttons inline */
-            background-color: #007bff;
-            color: white;
-            padding: 8px 15px; /* Smaller button size */
-            margin: 10px; /* Space between buttons */
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px; /* Adjust font size */
-            text-align: center;
-            transition: background-color 0.3s ease;
-            box-sizing: border-box; /* Ensure padding is accounted for */
-        }
-        
-        .home-btn:hover {
-            background-color: #0056b3;
-        }
-        
-        .home-btn-container {
-            margin-bottom: 20px; /* Add some space below the buttons */
-            text-align: center; /* Center the buttons horizontally */
-        }
-
     </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="resources.html">Resources</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
     <div class="container">
-        <div class="home-btn-container">
-            <a href="home.html" class="home-btn">Home</a> <!-- Home Button -->
-            <a href="about.html" class="home-btn">About</a> <!-- About Button -->
-            <a href="resources.html" class="home-btn">Resources</a> <!-- Resources Button-->
-        </div>
         <h1>Welcome!!</h1>
         <p>Click on a category of words to get started</p>
         <ul class="btn-list">
-            <!-- List of buttons linking to another page with query parameters -->
             <li class="btn-item">
                 <a href="content.html?category=Greetings+Basics" class="btn">Greetings & Basics</a>
                 <div class="checkbox-container">
@@ -137,5 +155,9 @@
             </li>
         </ul>
     </div>
+
+    <footer>
+        <p>&copy; 2025 KrishnanMcLaren. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
