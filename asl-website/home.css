@@ -1,0 +1,195 @@
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        header {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #cce7ff;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 40px;
+            text-align: center;
+            margin-bottom: 110px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        .btn-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .btn-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn {
+            background-color: #700404;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-right: 10px;
+            flex-grow: 1;
+            text-align: center;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .checkbox-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .checkbox-container input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+/*
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+*/
+        
+        .container2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        
+        header {
+            position: relative; /* To position the dropdown relative to the header */
+        }
+
+        #search-results {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            max-width: 300px;
+            position: absolute;
+            top: 50px; /* Adjust to position below the search bar */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+        }
+
+        #search-results li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        #search-results li:hover {
+            background-color: #f0f0f0;
+        }
+
+        #searchbar {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        
+        #list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .term {
+            font-size: 1.2em;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .term:last-child {
+            border-bottom: none;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }

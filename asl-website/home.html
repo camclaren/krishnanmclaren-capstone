@@ -3,122 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Welcome to our Handbook!</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-
-        header {
-            width: 100%;
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-        }
-
-        header nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        header nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        header nav a:hover {
-            color: #cce7ff;
-        }
-
-        footer {
-            width: 100%;
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 600px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        }
-
-        p {
-            text-align: center;
-        }
-
-        .btn-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .btn-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .btn {
-            background-color: #700404;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            margin-right: 10px;
-            flex-grow: 1;
-            text-align: center;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        .checkbox-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .checkbox-container input:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./home.css">
 </head>
 <body>
     <header>
@@ -127,6 +13,8 @@
             <a href="about.html">About</a>
             <a href="resources.html">Resources</a>
         </nav>
+        <input id="searchbar" onkeyup="search_term()" type="text" name="search" placeholder="Search terms..." />
+        <ul id="search-results"></ul>
     </header>
 
     <div class="container">
@@ -157,40 +45,10 @@
         </ul>
     </div>
 
+    <script src="./home.js"></script>
+
     <footer>
         <p>&copy; 2025 KrishnanMcLaren. All Rights Reserved.</p>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Handle checkbox enabling/disabling
-            const buttonItems = document.querySelectorAll('.btn-item');
-
-            buttonItems.forEach(item => {
-                const checkbox1 = item.querySelector('.checkbox-1'); // "Viewed"
-                const checkbox2 = item.querySelector('.checkbox-2'); // "Tested"
-
-                checkbox1.addEventListener('change', () => {
-                    if (checkbox1.checked) {
-                        checkbox2.disabled = false; // Enable "Tested" when "Viewed" is checked
-                    } else {
-                        checkbox2.disabled = true; // Disable "Tested" when "Viewed" is unchecked
-                        checkbox2.checked = false; // Uncheck "Tested" when disabled
-                    }
-                });
-            });
-
-            // Add button click handling for dynamic navigation
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Generate a URL based on the button's title, replacing spaces with underscores
-                    const title = button.getAttribute('data-title');
-                    const pageTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.html';
-                    window.location.href = pageTitle;
-                });
-            });
-        });
-    </script>
 </body>
 </html>
