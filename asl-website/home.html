@@ -102,6 +102,7 @@
             flex-grow: 1;
             text-align: center;
             transition: background-color 0.3s;
+            cursor: pointer;
         }
 
         .btn:hover {
@@ -113,8 +114,9 @@
             gap: 10px;
         }
 
-        .checkbox-container input {
-            margin-right: 5px;
+        .checkbox-container input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -124,7 +126,6 @@
             <a href="home.html">Home</a>
             <a href="about.html">About</a>
             <a href="resources.html">Resources</a>
-            <a href="contact.html">Contact</a>
         </nav>
     </header>
 
@@ -133,24 +134,24 @@
         <p>Click on a category of words to get started</p>
         <ul class="btn-list">
             <li class="btn-item">
-                <a href="content.html?category=Greetings+Basics" class="btn">Greetings & Basics</a>
+                <button class="btn" data-title="Greetings and Basics">Greetings & Basics</button>
                 <div class="checkbox-container">
                     <label><input type="checkbox" class="checkbox-1"> Viewed</label>
-                    <label><input type="checkbox" class="checkbox-2"> Tested</label>
+                    <label><input type="checkbox" class="checkbox-2" disabled> Tested</label>
                 </div>
             </li>
             <li class="btn-item">
-                <a href="content.html?category=Body+Parts+1+A-H" class="btn">Body Parts 1 (A-H)</a>
+                <button class="btn" data-title="Body Parts 1">Body Parts 1 (A-H)</button>
                 <div class="checkbox-container">
                     <label><input type="checkbox" class="checkbox-1"> Viewed</label>
-                    <label><input type="checkbox" class="checkbox-2"> Tested</label>
+                    <label><input type="checkbox" class="checkbox-2" disabled> Tested</label>
                 </div>
             </li>
             <li class="btn-item">
-                <a href="content.html?category=Body+Parts+2+J-Z" class="btn">Body Parts 2 (J-Z)</a>
+                <button class="btn" data-title="Body Parts 2">Body Parts 2 (J-Z)</button>
                 <div class="checkbox-container">
                     <label><input type="checkbox" class="checkbox-1"> Viewed</label>
-                    <label><input type="checkbox" class="checkbox-2"> Tested</label>
+                    <label><input type="checkbox" class="checkbox-2" disabled> Tested</label>
                 </div>
             </li>
         </ul>
@@ -159,5 +160,37 @@
     <footer>
         <p>&copy; 2025 KrishnanMcLaren. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle checkbox enabling/disabling
+            const buttonItems = document.querySelectorAll('.btn-item');
+
+            buttonItems.forEach(item => {
+                const checkbox1 = item.querySelector('.checkbox-1'); // "Viewed"
+                const checkbox2 = item.querySelector('.checkbox-2'); // "Tested"
+
+                checkbox1.addEventListener('change', () => {
+                    if (checkbox1.checked) {
+                        checkbox2.disabled = false; // Enable "Tested" when "Viewed" is checked
+                    } else {
+                        checkbox2.disabled = true; // Disable "Tested" when "Viewed" is unchecked
+                        checkbox2.checked = false; // Uncheck "Tested" when disabled
+                    }
+                });
+            });
+
+            // Add button click handling for dynamic navigation
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Generate a URL based on the button's title, replacing spaces with underscores
+                    const title = button.getAttribute('data-title');
+                    const pageTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.html';
+                    window.location.href = pageTitle;
+                });
+            });
+        });
+    </script>
 </body>
 </html>

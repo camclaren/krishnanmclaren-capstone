@@ -8,16 +8,57 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
+            padding: 0;
+            background-color: #f4f4f9;
         }
+
+        header {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #cce7ff;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
+
         .container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             max-width: 1000px;
-            margin: auto;
+            margin: 100px auto 60px; /* Space for header and footer */
+            padding: 20px;
         }
+
         .item {
             background-color: #fff;
             border-radius: 8px;
@@ -26,9 +67,11 @@
             text-align: center;
             transition: transform 0.2s;
         }
+
         .item:hover {
             transform: scale(1.05);
         }
+
         .img-with-text {
             width: 100%;
             height: auto;
@@ -37,48 +80,33 @@
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
-        .home-btn {
-            display: inline-block; /* Keep buttons inline */
-            background-color: #00ffae;
-            color: white;
-            padding: 8px 15px; /* Smaller button size */
-            margin: 10px; /* Space between buttons */
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px; /* Adjust font size */
-            text-align: center;
-            transition: background-color 0.3s ease;
-            box-sizing: border-box; /* Ensure padding is accounted for */
+        .img-with-text h1 {
+            color: #333;
         }
-        .home-btn:hover {
-            background-color: #00ffae;
-        }
-        .home-btn-container {
-            margin-bottom: 20px; /* Add some space below the buttons */
-            text-align: center; /* Center the buttons horizontally */
-        }
-
     </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="resources.html">Resources</a>
+        </nav>
+    </header>
 
-<!-- Buttons above the image -->
-<div class="home-btn-container">
-    <a href="home.html" class="home-btn">Home</a> <!-- Home Button -->
-    <a href="about.html" class="home-btn">About</a> <!-- About Button -->
-    <a href="resources.html" class="home-btn">Resources</a> <!-- Resources Button-->
-</div>
-
-<!-- Main Content -->
-<div class="container">
-    <div class="item">
-        <!-- ASL Alphabet Image -->
-        <div class="img-with-text">
-            <h1>Learn the alphabet!</h1>
-            <img src="alphabet.jpg" alt="ASL Alphabet Images" />
+    <!-- Main Content -->
+    <div class="container">
+        <div class="item">
+            <!-- ASL Alphabet Image -->
+            <div class="img-with-text">
+                <h1>Learn the Alphabet!</h1>
+                <img src="alphabet.jpg" alt="ASL Alphabet Images" />
+            </div>
         </div>
     </div>
-</div>
 
+    <footer>
+        <p>&copy; 2025 KrishnanMcLaren. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
