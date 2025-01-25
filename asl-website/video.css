@@ -16,7 +16,7 @@ header, footer {
 header {
     position: fixed;
     top: 0;
-    z-index: 1000;
+    padding: 15px 0;
 }
 
 footer {
@@ -28,10 +28,6 @@ footer {
     margin: 100px auto 60px; /* space for header and footer */
     text-align: center;
     padding: 20px;
-}
-
-.content h1 {
-    color: #333;
 }
 
 video {
