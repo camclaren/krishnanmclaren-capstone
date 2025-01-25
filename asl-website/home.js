@@ -15,26 +15,25 @@ const terms = [
 ];
 
 function search_term() {
-    const input = document.getElementById('searchbar').value.toLowerCase();
-    const searchResults = document.getElementById('search-results');
+    const input = document.getElementById('searchbar').value.toLowerCase(); // gets input from search bar
+    const searchResults = document.getElementById('search-results'); // what's outputted in drop-down results
 
-    // clear previous results
-    searchResults.innerHTML = '';
+    searchResults.innerHTML = ''; // clear previous results
     searchResults.style.display = 'none'; // hide dropdown when you're not searching
 
     if (input.trim() === '') {
         return; // do nothing if input is empty
     }
 
-    // filter terms based on what matches
+    // filter terms based on what matches input (to be put in list below)
     const matches = terms.filter(item => item.term.toLowerCase().includes(input));
 
     // display matches in the dropdown
     matches.forEach(item => {
-        const resultItem = document.createElement('li');
+        const resultItem = document.createElement('li'); // creates list item
         resultItem.textContent = item.term;
         resultItem.onclick = () => {
-            // redirects to video page with matching term
+            // redirects to video page with matching term (encodeURIComponent just handles special characters so it won't break)
             window.location.href = `video.html?term=${encodeURIComponent(item.term)}`;
         };
         searchResults.appendChild(resultItem);
@@ -49,7 +48,7 @@ function search_term() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // handle checkbox enabling/disabling
-    const buttonItems = document.querySelectorAll('.btn-item');
+    const buttonItems = document.querySelectorAll('.btn-item'); // gets buttons on home page (under class 'btn-item')
 
     buttonItems.forEach(item => {
         const checkbox1 = item.querySelector('.checkbox-1'); // "viewed"

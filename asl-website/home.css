@@ -129,22 +129,22 @@
         }
         
         header {
-            position: relative; /* To position the dropdown relative to the header */
+            position: relative; /* positions dropdown relative to header */
         }
 
         #search-results {
             list-style-type: none;
             padding: 0;
             margin: 0;
-            background-color: white;
+            background-color: grey;
             border: 1px solid #ccc;
             max-width: 300px;
             position: absolute;
-            top: 50px; /* Adjust to position below the search bar */
+            top: 50px; /* adjusts to position below search bar */
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
-            display: none; /* Hidden by default */
+            display: none; /* results are hidden by default */
         }
 
         #search-results li {
@@ -154,7 +154,7 @@
         }
 
         #search-results li:hover {
-            background-color: #f0f0f0;
+            background-color: #000000;
         }
 
         #searchbar {
@@ -175,21 +175,8 @@
             font-size: 1.2em;
             padding: 10px;
             border-bottom: 1px solid #ccc;
-            animation: fadeIn 0.5s ease-in-out;
         }
         
         .term:last-child {
             border-bottom: none;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-        
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
