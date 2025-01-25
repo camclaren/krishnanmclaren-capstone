@@ -25,7 +25,7 @@ footer {
 }
 
 .content {
-    margin: 100px auto 60px; /* Space for header and footer */
+    margin: 100px auto 60px; /* space for header and footer */
     text-align: center;
     padding: 20px;
 }
@@ -38,6 +38,7 @@ video {
     max-width: 90%;
     height: auto;
     margin-top: 20px;
+    border-radius: 8px; /* keeps rounded edges */
 }
 
 nav {
