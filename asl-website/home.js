@@ -1,11 +1,11 @@
 // array of available terms (stored separately, not displayed --> UPDATE AS WE GO)
 const terms = [
-    { term: 'ARM', video: 'video1.mp4' },
-    { term: 'BACK', video: 'video2.mp4' },
-    { term: 'CHEST', video: 'video1.mp4' },
+    { term: 'ARM', video: 'arm_rutgers.mp4' },
+    { term: 'BACK', video: 'back_rutgers.mp4' },
+    { term: 'CHEST', video: 'chest_rutgers.mp4' },
     { term: 'EARS', video: 'video2.mp4' },
     { term: 'EYES', video: 'video1.mp4' },
-    { term: 'HEAD', video: 'video2.mp4' },
+    { term: 'HEAD', video: 'head_rutgers.mp4' },
     { term: 'JAW', video: 'video1.mp4' },
     { term: 'KNEES', video: 'video2.mp4' },
     { term: 'NOSE', video: 'video1.mp4' },

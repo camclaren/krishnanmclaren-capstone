@@ -4,12 +4,12 @@ const term = params.get('term');
 
 // load video based on term
 const terms = {
-    'ARM': 'video1.mp4',
-    'BACK': 'video2.mp4',
-    'CHEST': 'video1.mp4',
+    'ARM': 'arm_rutgers.mp4',
+    'BACK': 'back_rutgers.mp4',
+    'CHEST': 'chest_rutgers.mp4',
     'EARS': 'video2.mp4',
     'EYES': 'video1.mp4',
-    'HEAD': 'video2.mp4',
+    'HEAD': 'head_rutgers.mp4',
     'JAW': 'video1.mp4',
     'KNEES': 'video2.mp4',
     'NOSE': 'video1.mp4',
