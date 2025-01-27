@@ -1,0 +1,26 @@
+[
+    {
+      "title": "Arm",
+      "source": "Rutgers SignBank",
+      "videoUrl": "http://localhost:5000/term-videos/arm_rutgers.mp4",
+      "searchTerm": "arm"
+    },
+    {
+      "title": "Back",
+      "source": "Rutgers SignBank",
+      "videoUrl": "http://localhost:5000/videos/back_rutgers.mp4",
+      "searchTerm": "back"
+    },
+    {
+      "title": "Chest",
+      "source": "Rutgers SignBank",
+      "videoUrl": "http://localhost:5000/videos/chest_rutgers.mp4",
+      "searchTerm": "chest"
+    },
+    {
+      "title": "Head",
+      "source": "Rutgers SignBank",
+      "videoUrl": "http://localhost:5000/videos/head_rutgers.mp4",
+      "searchTerm": "head"
+    }
+]
