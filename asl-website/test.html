@@ -13,15 +13,25 @@
                 <a href="home.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="resources.html">Resources</a>
+                <a href="test.html">Test</a>
             </nav>
             <input id="searchbar" onkeyup="search_term()" type="text" name="search" placeholder="Search terms..." />
             <ul id="search-results"></ul>
         </header>
+
+        <div id="term-display">Press the button to get a term</div>
+
+        <button onclick="goToGradio()">Record Video</button>
+
+        <div id="video-container">
+            <p>Record video here</p>
+        </div>
+
+        <button onclick="generateTerm()">Next Term</button>
     </body>
 
-    
-
     <script src="./test.js"></script>
+    <script src="./home.js"></script>
 
     <footer>
         <p>&copy; 2025 KrishnanMcLaren. All Rights Reserved.</p>

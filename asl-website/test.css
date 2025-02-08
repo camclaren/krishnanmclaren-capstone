@@ -16,7 +16,8 @@ header {
     color: white;
     padding: 15px 0;
     text-align: center;
-    position: relative; /* positions dropdown relative to header */
+    margin-top: -6.5pc;
+    margin-bottom: 0pc;
 }
 
 nav {
@@ -68,14 +69,6 @@ h1 {
 p {
     text-align: center;
 }
-
-/*
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-*/
 
 .container2 {
     display: flex;
@@ -131,4 +124,33 @@ p {
 
 .term:last-child {
     border-bottom: none;
+}
+
+#video-container {
+    background-color: grey;
+    margin-top: 0pc;
+    margin-bottom: 0pc;
+    height: 200px;
+    width: 300px;
+}
+
+#term-display {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+button {
+    background-color: #054711;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
