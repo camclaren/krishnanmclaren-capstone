@@ -15,7 +15,23 @@ const terms = {
     'NOSE': 'video1.mp4',
     'RIBS': 'video2.mp4',
     'STOMACH': 'video1.mp4',
-    'THROAT': 'video2.mp4'
+    'THROAT': 'video2.mp4',
+    'SCRAPE': 'scrape.mp4',
+    'STAB': 'stab.mp4',
+    'STITCH': 'stitch.mp4',
+    'CUT': 'cut.mp4',
+    'BURN': 'burn.m4',
+    'DIZZY': 'video2.mp4',
+    'FAINT': 'video1.mp4',
+    'HEADACHE': 'video2.mp4',
+    'ITCH': 'video1.mp4',
+    'STOMACH CRAMPS': 'video2.mp4',
+    'ALCOHOL': 'video2.mp4',
+    'COCAINE': 'video1.mp4',
+    'DRUG': 'video2.mp4',
+    'MARIJUANA': 'video1.mp4',
+    'OVERDOSE': 'video2.mp4'
+    
 };
 
 if (term && terms[term.toUpperCase()]) {

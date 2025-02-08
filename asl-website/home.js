@@ -11,7 +11,28 @@ const terms = [
     { term: 'NOSE', video: 'video1.mp4' },
     { term: 'RIBS', video: 'video2.mp4' },
     { term: 'STOMACH', video: 'video1.mp4' },
-    { term: 'THROAT', video: 'video2.mp4' }
+    { term: 'THROAT', video: 'video2.mp4' },
+    { term: 'SCRAPE', video: 'scrape.mp4' },
+    { term: 'STAB', video: 'stab.mp4' },
+    { term: 'STITCH', video: 'stitch.mp4' },
+    { term: 'CUT', video: 'cut.mp4' },
+    { term: 'BURN', video: 'burn.mp4' },
+    { term: 'DIZZY', video: 'video2.mp4' },
+    { term: 'FAINT', video: 'video1.mp4' },
+    { term: 'HEADACHE', video: 'video2.mp4' },
+    { term: 'ITCH', video: 'video1.mp4' },
+    { term: 'STOMACH CRAMPS', video: 'video2.mp4' },
+    { term: 'PANIC', video: 'video2.mp4' },
+    { term: 'RASH', video: 'video1.mp4' },
+    { term: 'SWEATING', video: 'video2.mp4' },
+    { term: 'SWELLING', video: 'video1.mp4' },
+    { term: 'VOMIT', video: 'video2.mp4' },
+    { term: 'ALCOHOL', video: 'video2.mp4' },
+    { term: 'COCAINE', video: 'video1.mp4' },
+    { term: 'DRUG', video: 'video2.mp4' },
+    { term: 'MARIJUANA', video: 'video1.mp4' },
+    { term: 'OVERDOSE', video: 'video2.mp4' },
+
 ];
 
 function search_term() {

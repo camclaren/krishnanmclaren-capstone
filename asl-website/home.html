@@ -12,7 +12,6 @@
             <a href="home.html">Home</a>
             <a href="about.html">About</a>
             <a href="resources.html">Resources</a>
-            <a href="test.html">Test</a>
         </nav>
         <input id="searchbar" onkeyup="search_term()" type="text" name="search" placeholder="Search terms..." />
         <ul id="search-results"></ul>
@@ -43,9 +42,36 @@
                     <label><input type="checkbox" class="checkbox-2" disabled> Tested</label>
                 </div>
             </li>
-        </ul>
-    </div>
+            <li class="btn-item">
+                <button class="btn" data-title="Injuries">Injuries</button>
+                <div class="checkbox-container">
+                    <label><input type="checkbox" class="checkbox-1"> Viewed</label>
+                    <label><input type="checkbox" class="checkbox-2" disabled> Tested</label>
+                </div>
+            </li>
+            <li class="btn-item">
+                <button class="btn" data-title="Symptoms 1">Symptoms 1 (A-S)</button>
+                <div class="checkbox-container">
+                    <label><input type="checkbox" class="checkbox-1"> Viewed</label>
+                    <label><input type="checkbox" class="checkbox-2" disabled> Tested</label>
+                </div>
+            </li>
+            <li class="btn-item">
+            <button class="btn" data-title="Symptoms 2">Symptoms 2 (P-Z)</button>
+            <div class="checkbox-container">
+                <label><input type="checkbox" class="checkbox-1"> Viewed</label>
+                <label><input type="checkbox" class="checkbox-2" disabled> Tested</label>
+                </div>
+            </li>
+            <li class="btn-item">
+            <button class="btn" data-title="Substance Related">Substance Related</button>
+            <div class="checkbox-container">
+                <label><input type="checkbox" class="checkbox-1"> Viewed</label>
+                <label><input type="checkbox" class="checkbox-2" disabled> Tested</label>
+            </ul>
+        </div>
 
+    
     <script src="./home.js"></script>
 
     <footer>
