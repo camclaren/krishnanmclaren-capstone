@@ -6,6 +6,7 @@ const terms = [
     { term: 'EARS', video: 'video2.mp4' },
     { term: 'EYES', video: 'video1.mp4' },
     { term: 'HEAD', video: 'head_rutgers.mp4' },
+    { term: 'HEART', video: 'head_rutgers.mp4' },
     { term: 'JAW', video: 'video1.mp4' },
     { term: 'LEGS', video: 'video2.mp4' },
     { term: 'NOSE', video: 'video1.mp4' },
