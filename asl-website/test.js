@@ -7,11 +7,13 @@ const terms = [
     'HEAD',
     'HEART',
     'JAW',
-    'KNEES',
+    'LEGS',
+    'LUNGS',
     'NOSE',
     'RIBS',
     'STOMACH',
-    'THROAT'
+    'THROAT',
+    'WRIST',
 ];
 
 function generateTerm() {
