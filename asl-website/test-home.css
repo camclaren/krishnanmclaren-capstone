@@ -108,9 +108,31 @@ p {
     background-color: #0056b3;
 }
 
+#reset-btn {
+    background-color: #a71e90;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    
+    /* Positioning */
+    display: block; /* Ensures it appears on a new line */
+    margin: auto; /* Aligns it to the right */
+    margin-top: 10px; /* Adds spacing below checkboxes */
+}
+
+#reset-btn:hover {
+    background-color: #0056b3;
+}
+
 .checkbox-container {
     display: flex;
     gap: 10px;
+    accent-color: #a71e90;
 }
 
 .checkbox-container input:disabled {
