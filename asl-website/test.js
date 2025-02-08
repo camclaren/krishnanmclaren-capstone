@@ -6,7 +6,7 @@ const terms = [
     'EYES',
     'HEAD',
     'JAW',
-    'KNEES',
+    'LEGS',
     'NOSE',
     'RIBS',
     'STOMACH',
