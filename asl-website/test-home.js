@@ -100,10 +100,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.getElementById('reset-btn').addEventListener('click', () => {
-        localStorage.clear(); // Clear all localStorage
+    console.log("Page loaded, script running...");
+
+    // Now try selecting the button
+    const resetButton = document.getElementById('reset-btn');
+    if (!resetButton) {
+        console.error("Reset button not found!");
+    }
+    else{
+        console.log("reset found!")
+    }
+
+    resetButton.addEventListener("click", function() {
+        localStorage.clear();
         document.querySelectorAll('.checkbox-2').forEach(checkbox => {
-            checkbox.checked = false; // Uncheck all checkboxes
+            checkbox.checked = false;
         });
     });
 });
