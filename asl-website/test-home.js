@@ -71,11 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // handle checkbox enabling/disabling
     const buttonItems = document.querySelectorAll('.btn-item'); // gets buttons on home page (under class 'btn-item')
 
-    buttonItems.forEach(item => {
+    buttonItems.forEach((item, index) => {
         const checkbox2 = item.querySelector('.checkbox-2'); // "tested"
-        const button = document.getElementById('btn');
+        const button = item.querySelector('.btn');
+
+        if (!button || !checkbox2) return; // makes sure both checkbox + button exist
+
+        const storageKey = `visited-${index}`; // local storage key to track state
+
+        if (localStorage.getItem(storageKey) === 'visited') {
+            checkbox2.checked = true;
+        }
+
         button.addEventListener('click', function() {
             checkbox2.checked = true; // enable tested button when viewed button is checked
+            localStorage.setItem(storageKey, 'visited'); // local storage of state
         });
     });
 
@@ -87,6 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = button.getAttribute('data-title');
             const pageTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.html';
             window.location.href = pageTitle;
+        });
+    });
+
+    document.getElementById('reset-btn').addEventListener('click', () => {
+        localStorage.clear(); // Clear all localStorage
+        document.querySelectorAll('.checkbox-2').forEach(checkbox => {
+            checkbox.checked = false; // Uncheck all checkboxes
         });
     });
 });

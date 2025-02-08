@@ -111,6 +111,7 @@ p {
 .checkbox-container {
     display: flex;
     gap: 10px;
+    background-color: blueviolet;
 }
 
 .checkbox-container input:disabled {
