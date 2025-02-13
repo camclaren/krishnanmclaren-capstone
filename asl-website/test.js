@@ -14,6 +14,21 @@ const terms = [
     'STOMACH',
     'THROAT',
     'WRIST',
+    'SCRAPE',
+    'STAB',
+    'STITCH',
+    'CUT',
+    'BURN',
+    'DIZZY',
+    'FAINT',
+    'HEADACHE',
+    'ITCH',
+    'STOMACH CRAMPS',
+    'ALCOHOL',
+    'COCAINE',
+    'DRUG',
+    'MARIJUANA',
+    'OVERDOSE'
 ];
 
 function generateTerm() {
