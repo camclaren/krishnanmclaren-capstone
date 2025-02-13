@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log("Page loaded, script running...");
 
-    // Now try selecting the button
     const resetButton = document.getElementById('reset-btn');
     if (!resetButton) {
         console.error("Reset button not found!");

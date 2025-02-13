@@ -126,6 +126,13 @@ p {
     border-bottom: none;
 }
 
+select {
+    width: 150px;
+}
+video {
+    margin: 10px 0 0 0;
+}
+
 #video-container {
     background-color: grey;
     margin-top: 0pc;

@@ -21,11 +21,13 @@
 
         <div id="term-display">Press the button to get a term</div>
 
-        <button onclick="goToGradio()">Record Video</button>
+        <button onclick="getStream()">Record Video</button>
 
-        <div id="video-container">
-            <p>Record video here</p>
-        </div>
+        <div class="select">
+            <label for="videoSource">Video source: </label><select id="videoSource"></select>
+          </div>
+        
+          <video autoplay muted playsinline></video>
 
         <button onclick="generateTerm()">Next Term</button>
     </body>
