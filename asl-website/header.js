@@ -1,3 +1,5 @@
+// array of available terms (stored separately, not displayed --> UPDATE AS WE GO)
+
 const terms = [
     { term: 'ARM', video: 'arm_rutgers.mp4' },
     { term: 'BACK', video: 'back_rutgers.mp4' },
