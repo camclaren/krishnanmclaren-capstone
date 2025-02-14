@@ -114,3 +114,8 @@ video {
 #test-btn:hover {
     background-color: #0056b3;
 }
+
+.btn-item {
+    /* NEED TO CENTER IT SOMEHOW */
+    list-style: none;
+}
