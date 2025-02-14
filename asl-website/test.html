@@ -20,16 +20,15 @@
         </header>
 
         <div id="term-display">Press the button to get a term</div>
-
-        <button onclick="getStream()">Record Video</button>
-
-        <div class="select">
-            <label for="videoSource">Video source: </label><select id="videoSource"></select>
-          </div>
-        
-          <video autoplay muted playsinline></video>
-
         <button onclick="generateTerm()">Next Term</button>
+
+            <div class="video-container">
+                <video id="recordedVideo" controls></video>
+                <button id="start-btn">Start Recording</button>
+                <button id="stop-btn">Stop Recording</button>
+            </div>
+
+        </div>
     </body>
 
     <script src="./test.js"></script>

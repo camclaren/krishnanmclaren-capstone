@@ -36,59 +36,31 @@ function generateTerm() {
     document.getElementById("term-display").innerText = terms[randomIndex];
 }
 
-var videoElement = document.querySelector('video');
-var audioSelect = document.querySelector('select#audioSource');
-var videoSelect = document.querySelector('select#videoSource');
+const startBtn = document.getElementById('startBtn');
+const stopBtn = document.getElementById('stopBtn');
+const recordedVideo = document.getElementById('recordedVideo');
+let mediaRecorder;
+let recordedChunks = [];
 
-audioSelect.onchange = getStream;
-videoSelect.onchange = getStream;
+startBtn.addEventListener('click', async () => {
+    const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+    mediaRecorder = new MediaRecorder(stream);
 
-getStream().then(getDevices).then(gotDevices);
+    mediaRecorder.ondataavailable = event => {
+        if (event.data.size > 0) {
+            recordedChunks.push(event.data);
+        }
+    };
 
-function getDevices() {
-  // AFAICT in Safari this only gets default devices until gUM is called :/
-  return navigator.mediaDevices.enumerateDevices();
-}
+    mediaRecorder.start();
+});
 
-function gotDevices(deviceInfos) {
-  window.deviceInfos = deviceInfos; // make available to console
-  console.log('Available input and output devices:', deviceInfos);
-  for (const deviceInfo of deviceInfos) {
-    const option = document.createElement('option');
-    option.value = deviceInfo.deviceId;
-    if (deviceInfo.kind === 'videoinput') {
-      option.text = deviceInfo.label || `Camera ${videoSelect.length + 1}`;
-      videoSelect.appendChild(option);
-    }
-  }
-}
+stopBtn.addEventListener('click', () => {
+    mediaRecorder.stop();
+});
 
-function getStream() {
-  if (window.stream) {
-    window.stream.getTracks().forEach(track => {
-      track.stop();
-    });
-  }
-  const audioSource = audioSelect.value;
-  const videoSource = videoSelect.value;
-  const constraints = {
-    video: {deviceId: videoSource ? {exact: videoSource} : undefined}
-  };
-  return navigator.mediaDevices.getUserMedia(constraints).
-    then(gotStream).catch(handleError);
-}
-
-function gotStream(stream) {
-  window.stream = stream; // make stream available to console
-  videoSelect.selectedIndex = [...videoSelect.options].
-    findIndex(option => option.text === stream.getVideoTracks()[0].label);
-  videoElement.srcObject = stream;
-}
-
-function handleError(error) {
-  console.error('Error: ', error);
-}
-
-function goToGradio() {
-    window.location.href = "https://your-gradio-app-link.com"; // Change this to your Gradio app URL
-}
+mediaRecorder.onstop = () => {
+    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+    recordedVideo.src = URL.createObjectURL(blob);
+    recordedChunks = [];
+};
