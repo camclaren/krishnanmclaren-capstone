@@ -3,21 +3,28 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    min-height: 110vh;
+    padding-top: 100px;
     flex-direction: column;
 }
 
-header {
+header, footer {
     width: 100%;
     background-color: #333;
     color: white;
-    padding: 15px 0;
     text-align: center;
-    margin-top: -6.5pc;
-    margin-bottom: 0pc;
+    padding: 10px 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    padding: 15px 0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
 }
 
 nav {
@@ -35,46 +42,6 @@ nav a {
 
 nav a:hover {
     color: #cce7ff;
-}
-
-footer {
-    width: 100%;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-}
-
-.container {
-    width: 90%;
-    max-width: 600px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-top: 40px;
-    text-align: center;
-    margin-bottom: 110px;
-}
-
-h1 {
-    color: #333;
-    text-align: center;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-p {
-    text-align: center;
-}
-
-.container2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
 }
 
 #search-results {
@@ -129,22 +96,15 @@ p {
 select {
     width: 150px;
 }
-video {
-    margin: 10px 0 0 0;
-}
 
 .video-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    margin: 20px auto;
-    padding: 0;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    background: #f9f9f9;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;      /* Center horizontally */
+}
+#term-display { /* Center the h1 text */
+    text-align: center;
+    font-size: large;
 }
 
 video {
@@ -152,12 +112,6 @@ video {
     max-width: 600px;
     height: auto;
     border-radius: 10px;
-}
-
-#term-display {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 20px 0;
 }
 
 button {

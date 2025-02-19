@@ -19,21 +19,25 @@
             <ul id="search-results"></ul>
         </header>
 
-        <div id="term-display">Press the button to get a term</div>
-        <button onclick="generateTerm()">Next Term</button>
+        <h1>
+            <div id="term-display">Press the button to get a term</div>
+        </h1>
 
             <div class="video-container">
+                <button onclick="generateTerm()">Get Term</button>
                 <video id="recordedVideo" controls></video>
                 <button id="start-btn">Start Recording</button>
                 <button id="stop-btn">Stop Recording</button>
             </div>
 
         </div>
-    </body>
 
-    <script src="./test.js"></script>
-    <script src="./home.js"></script>
-    <script src="./header.js"></script>
+        <script type="module" src="./constants.js"></script>
+        <script type="module" src="./test.js"></script>
+        <script type="module" src="./home.js"></script>
+        <script type="module" src="./header.js"></script>
+        
+    </body>
 
     <footer>
         <p>&copy; 2025 KrishnanMcLaren. All Rights Reserved.</p>

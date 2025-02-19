@@ -33,3 +33,5 @@ const terms = [
     { term: 'OVERDOSE', video: './ASL_Videos/overdose_rutgers.mp4' }
 
 ];
+
+export {terms};
