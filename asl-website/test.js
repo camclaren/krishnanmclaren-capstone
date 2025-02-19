@@ -1,39 +1,8 @@
-const terms = [
-    'ARM',
-    'BACK',
-    'CHEST',
-    'EARS',
-    'EYES',
-    'HEAD',
-    'HEART',
-    'JAW',
-    'LEGS',
-    'LUNGS',
-    'NOSE',
-    'RIBS',
-    'STOMACH',
-    'THROAT',
-    'WRIST',
-    'SCRAPE',
-    'STAB',
-    'STITCH',
-    'CUT',
-    'BURN',
-    'DIZZY',
-    'FAINT',
-    'HEADACHE',
-    'ITCH',
-    'STOMACH CRAMPS',
-    'ALCOHOL',
-    'COCAINE',
-    'DRUG',
-    'MARIJUANA',
-    'OVERDOSE'
-];
+import {terms} from './constants.js';
 
 function generateTerm() {
     const randomIndex = Math.floor(Math.random() * terms.length);
-    document.getElementById("term-display").innerText = terms[randomIndex];
+    document.getElementById("term-display").innerText = terms[randomIndex].term;
 }
 
 const startBtn = document.getElementById('startBtn');
@@ -52,15 +21,18 @@ startBtn.addEventListener('click', async () => {
         }
     };
 
+    mediaRecorder.onstop = () => {  // Move onstop handler *inside* the click listener
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        recordedVideo.src = URL.createObjectURL(blob);
+        recordedVideo.controls = true; // Add controls so the user can play/pause
+        recordedChunks = [];
+    };
+
     mediaRecorder.start();
 });
 
 stopBtn.addEventListener('click', () => {
-    mediaRecorder.stop();
+    if (mediaRecorder && mediaRecorder.state === "recording") { // Check if mediaRecorder exists and is recording
+        mediaRecorder.stop();
+    }
 });
-
-mediaRecorder.onstop = () => {
-    const blob = new Blob(recordedChunks, { type: 'video/webm' });
-    recordedVideo.src = URL.createObjectURL(blob);
-    recordedChunks = [];
-};
