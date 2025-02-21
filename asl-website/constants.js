@@ -1,4 +1,4 @@
-const terms = [
+export const terms = [
     { term: 'ARM', video: './ASL_Videos/arm_rutgers.mp4' },
     { term: 'BACK', video: './ASL_Videos/back_rutgers.mp4' },
     { term: 'CHEST', video: './ASL_Videos/chest_rutgers.mp4' },
@@ -33,5 +33,3 @@ const terms = [
     { term: 'OVERDOSE', video: './ASL_Videos/overdose_rutgers.mp4' }
 
 ];
-
-export {terms};
