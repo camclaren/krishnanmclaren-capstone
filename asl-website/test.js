@@ -8,17 +8,21 @@ function generateTerm() {
 const startBtn = document.getElementById('start-btn');
 const stopBtn = document.getElementById('stop-btn');
 const recordedVideo = document.getElementById('recordedVideo');
-let mediaRecorder;
-let recordedChunks = [];
+let mediaRecorder; // holds object mediaRecorder
+let recordedChunks = []; // stores recorded video in chunks
+let stream; // stores media from the camera stream, outside event listener so it can be accessed later
 
 startBtn.addEventListener('click', async () => {
     console.log("Start button clicked!");
 
     try {
-        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); // get user media permissions (only need video)
+
+        recordedVideo.srcObject = stream; // set the video element to display the stream
+        recordedVideo.muted = true; // mute the video to avoid echo
+
         mediaRecorder = new MediaRecorder(stream);
 
-        // Attach event handlers *before* starting the recording
         mediaRecorder.ondataavailable = event => {
             console.log("Data available:", event.data.size);
             if (event.data.size > 0) {
@@ -29,23 +33,26 @@ startBtn.addEventListener('click', async () => {
         mediaRecorder.onstop = () => {
             const blob = new Blob(recordedChunks, { type: 'video/webm' });
             recordedVideo.src = URL.createObjectURL(blob);
-            recordedVideo.controls = true;
+            recordedVideo.controls = true; // show video controls after recording
             recordedChunks = [];
+
+            // stop all tracks of the stream to release the camera
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
+            recordedVideo.srcObject = null; // release the camera from the video element.
         };
 
-        mediaRecorder.onerror = (error) => { // Handle potential errors
+        mediaRecorder.onerror = (error) => {
             console.error("MediaRecorder error:", error);
-            // Optionally display an error message to the user
         };
 
         mediaRecorder.start();
         console.log("MediaRecorder started. State:", mediaRecorder.state);
-        startBtn.disabled = true;  // Disable start button while recording
-        stopBtn.disabled = false; // Enable stop button
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
 
     } catch (error) {
         console.error("Error accessing media devices:", error);
-        // Handle error, e.g., display a message to the user
     }
 });
 
@@ -53,10 +60,9 @@ stopBtn.addEventListener('click', () => {
     console.log("Stop button clicked!")
     if (mediaRecorder && mediaRecorder.state === "recording") {
         mediaRecorder.stop();
-        startBtn.disabled = false; // Re-enable start button
-        stopBtn.disabled = true;  // Disable stop button
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
     }
 });
 
-// Initially disable the stop button
 stopBtn.disabled = true;

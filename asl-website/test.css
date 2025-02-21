@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f9;
-    min-height: 110vh;
+    min-height: 150vh;
     padding-top: 100px;
     flex-direction: column;
 }
