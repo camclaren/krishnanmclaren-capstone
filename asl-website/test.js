@@ -28,7 +28,7 @@ startBtn.addEventListener('click', async () => {
         mediaRecorder = new MediaRecorder(stream);
 
         mediaRecorder.ondataavailable = event => {
-            console.log("Data available:", event.data.size);
+            console.log("Video recorded!");
             if (event.data.size > 0) {
                 recordedChunks.push(event.data);
             }
