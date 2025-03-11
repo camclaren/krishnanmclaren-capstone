@@ -1,21 +1,27 @@
-import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
-import { getFirestore } from "firebase/firestore"; //  using Firestore
+// Import Firebase SDK modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// Your Firebase configuration (Replace with your actual Firebase project config)
 const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
     authDomain: "YOUR_AUTH_DOMAIN",
     projectId: "YOUR_PROJECT_ID",
     storageBucket: "YOUR_STORAGE_BUCKET",
     messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID",
-    measurementId: "YOUR_MEASUREMENT_ID"
+    appId: "YOUR_APP_ID"
 };
 
-// initializing Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
-const db = getFirestore(app); // for using Firestore
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+console.log("✅ Firebase Config Loaded Successfully");
+
+// Export Firebase instances for use in other files
+export { auth, db };
 
 import { ref, getDownloadURL } from "firebase/storage";
 

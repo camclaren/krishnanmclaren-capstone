@@ -1,22 +1,21 @@
-import { auth } from './firebase-config.js';
-import { signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+import { auth } from "./firebase-config.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Handle login form submission
-    document.getElementById("login-form").addEventListener("submit", async (e) => {
-        e.preventDefault();
+document.getElementById("login-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            alert("Login successful!");
-            window.location.href = "home.html"; // Redirect to home page
-        } catch (error) {
-            alert("Login failed: " + error.message);
-        }
-    });
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        console.log("✅ Login successful!");
+        window.location.href = "home.html"; // Redirect to home page
+    } catch (error) {
+        console.error("Login failed:", error);
+        alert("Login failed: " + error.message);
+    }
+});
 
     // Handle register button click (redirect to register page)
     const registerBtn = document.getElementById("register-btn");
@@ -25,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "register.html"; // Redirect to registration page
         });
     }
-});
+
 
 
 
