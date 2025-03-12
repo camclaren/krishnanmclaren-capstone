@@ -28,14 +28,17 @@ footer {
     margin: 100px auto 60px; /* space for header and footer */
     text-align: center;
     padding: 20px;
+    display: flex; /* horizontal layout */
+    justify-content: center; /* center horizontally */
+    align-items: flex-start; /* align items to the top */
+    flex-wrap: wrap; /* allow videos to wrap if screen is too small */
 }
 
 video {
-    max-width: 50%;
+    max-width: 40%; /* fit side by side */
     height: auto;
-    margin-top: 20px;
+    margin: 20px 10px 0; /* adjusted margin for spacing */
     border-radius: 8px; /* keeps rounded edges */
-    text-align: right;
 }
 
 nav {
@@ -53,4 +56,17 @@ nav a {
 
 nav a:hover {
     color: #cce7ff;
+}
+
+#term-title {
+    width: 100%; /* make title span full width */
+    text-align: center; /* center title text */
+    margin-bottom: 20px; /* add space below title */
+}
+
+/* adjust for smaller screens */
+@media (max-width: 768px) {
+    video {
+        max-width: 90%; /* on smaller screens, make videos take up more width */
+    }
 }

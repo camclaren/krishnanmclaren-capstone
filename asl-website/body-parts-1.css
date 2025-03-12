@@ -79,6 +79,10 @@ h1 {
     margin-bottom: 20px;
 }
 
+ul {
+    padding-inline-start: 0;
+}
+
 .video-container {
     margin-bottom: 10px;
 }
@@ -94,7 +98,7 @@ video {
     border-radius: 8px;
 }
 
-#test-btn {
+.btn-item {
     background-color: #a71e90;
     color: white;
     padding: 8px 15px;
@@ -105,17 +109,13 @@ video {
     cursor: pointer;
     transition: background-color 0.3s;
     
-    /* Positioning */
-    display: block; /* Ensures it appears on a new line */
-    margin: auto; /* Aligns it to the right */
-    margin-top: 10px; /* Adds spacing below checkboxes */
+    /* positioning */
+    display: flex; /* ensures it appears on new line */
+    margin: auto; /* aligns to the right */
+    margin-top: 10px; /* adds spacing below checkboxes */
+    max-width: 150px;
 }
 
-#test-btn:hover {
+.btn-item:hover {
     background-color: #0056b3;
-}
-
-.btn-item {
-    /* NEED TO CENTER IT SOMEHOW */
-    list-style: none;
 }
