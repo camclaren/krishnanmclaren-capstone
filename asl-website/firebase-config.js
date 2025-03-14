@@ -1,36 +1,27 @@
 // Import Firebase SDK modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { getAnalytics } from "firebase/analytics";
 
 // Your Firebase configuration (Replace with your actual Firebase project config)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
+    apiKey: "AIzaSyBcACB5JesPs0X6Pz48yd76PIxbuy_j7q0",
+    authDomain: "asl-learning-app-4a237.firebaseapp.com",
+    projectId: "asl-learning-app-4a237",
+    storageBucket: "asl-learning-app-4a237.firebasestorage.app",
+    messagingSenderId: "642971879399",
+    appId: "1:642971879399:web:ac0c91008c0eaaa48a9f42",
+    measurementId: "G-6R6RM8H0V5"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const analytics = getAnalytics(app);
 
-console.log("✅ Firebase Config Loaded Successfully");
+console.log("Firebase Config Loaded Successfully");
 
 // Export Firebase instances for use in other files
-export { auth, db };
+export { auth, storage, ref, getDownloadURL };
 
-import { ref, getDownloadURL } from "firebase/storage";
-
-const fetchVideo = async (videoPath) => {
-    const videoRef = ref(storage, videoPath);
-    try {
-        const url = await getDownloadURL(videoRef);
-        return url; //video display
-    } catch (error) {
-        console.error("Error fetching video:", error);
-    }
-};
