@@ -70,3 +70,24 @@ nav a:hover {
         max-width: 90%; /* on smaller screens, make videos take up more width */
     }
 }
+
+.btn-item {
+    background-color: #a71e90;
+    color: white;
+    padding: 12px 25px; /* makes button bigger */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    margin: auto;
+    margin-top: -40px auto 0; /* horizontal centering */
+    max-width: 200px;
+}
+
+.btn-item:hover {
+    background-color: #0056b3;
+}

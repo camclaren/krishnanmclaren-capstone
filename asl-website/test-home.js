@@ -34,12 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Page loaded, script running...");
 
     const resetButton = document.getElementById('reset-btn');
-    if (!resetButton) {
-        console.error("Reset button not found!");
-    }
-    else{
-        console.log("reset found!")
-    }
 
     resetButton.addEventListener("click", function() {
         localStorage.clear();
