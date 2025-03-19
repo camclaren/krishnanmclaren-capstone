@@ -3,6 +3,7 @@
 import {terms} from './constants.js';
 
 function search_term() {
+    console.log('function started!');
     const input = document.getElementById('searchbar').value.toLowerCase(); // gets input from search bar
     const searchResults = document.getElementById('search-results'); // what's outputted in drop-down results
 
@@ -32,3 +33,6 @@ function search_term() {
         searchResults.style.display = 'block';
     }
 }
+
+const searchbar = document.getElementById('searchbar');
+searchbar.addEventListener('keyup', search_term);

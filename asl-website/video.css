@@ -31,10 +31,11 @@ footer {
 }
 
 video {
-    max-width: 90%;
+    max-width: 50%;
     height: auto;
     margin-top: 20px;
     border-radius: 8px; /* keeps rounded edges */
+    text-align: right;
 }
 
 nav {

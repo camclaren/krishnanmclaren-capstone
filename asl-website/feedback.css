@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+header, footer {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    padding: 15px 0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+}
+
+.content {
+    margin: 100px auto 60px; /* space for header and footer */
+    text-align: center;
+    padding: 20px;
+    display: flex; /* horizontal layout */
+    justify-content: center; /* center horizontally */
+    align-items: flex-start; /* align items to the top */
+    flex-wrap: wrap; /* allow videos to wrap if screen is too small */
+}
+
+video {
+    max-width: 40%; /* fit side by side */
+    height: auto;
+    margin: 20px 10px 0; /* adjusted margin for spacing */
+    border-radius: 8px; /* keeps rounded edges */
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #cce7ff;
+}
+
+#term-title {
+    width: 100%; /* make title span full width */
+    text-align: center; /* center title text */
+    margin-bottom: 20px; /* add space below title */
+}
+
+/* adjust for smaller screens */
+@media (max-width: 768px) {
+    video {
+        max-width: 90%; /* on smaller screens, make videos take up more width */
+    }
+}
+
+.btn-item {
+    background-color: #a71e90;
+    color: white;
+    padding: 12px 25px; /* makes button bigger */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    margin: auto;
+    margin-top: -40px auto 0; /* horizontal centering */
+    max-width: 200px;
+}
+
+.btn-item:hover {
+    background-color: #0056b3;
+}

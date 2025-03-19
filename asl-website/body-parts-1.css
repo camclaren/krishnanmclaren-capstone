@@ -47,9 +47,9 @@ footer {
 }
 
 .main-content {
-    flex-grow: 1; /* Makes the content fill the space between header and footer */
-    margin-top: 60px; /* Height of the fixed header */
-    margin-bottom: 60px; /* Height of the fixed footer */
+    flex-grow: 1;
+    margin-top: 60px;
+    margin-bottom: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,26 +57,33 @@ footer {
 }
 
 .container {
-    width: 90%;
-    max-width: 600px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 30px auto 30px;
     text-align: center;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 h1 {
     color: #333;
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 20px;
 }
 
 .item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 20px;
+    position: relative;
+}
+
+ul {
+    padding-inline-start: 0;
 }
 
 .video-container {
@@ -90,32 +97,26 @@ h1 {
 
 video {
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     border-radius: 8px;
 }
 
-#test-btn {
+.btn-item {
     background-color: #a71e90;
     color: white;
-    padding: 8px 15px;
+    padding: 12px 25px; /* makes button bigger */
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s;
-    
-    /* Positioning */
-    display: block; /* Ensures it appears on a new line */
-    margin: auto; /* Aligns it to the right */
-    margin-top: 10px; /* Adds spacing below checkboxes */
+    display: block;
+    margin: auto;
+    margin-top: -10px auto 0; /* horizontal centering */
+    max-width: 200px;
 }
 
-#test-btn:hover {
+.btn-item:hover {
     background-color: #0056b3;
-}
-
-.btn-item {
-    /* NEED TO CENTER IT SOMEHOW */
-    list-style: none;
 }

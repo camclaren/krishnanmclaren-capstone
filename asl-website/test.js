@@ -1,30 +1,57 @@
-import { terms } from './constants.js';
+// import { terms } from './constants.js';
 
-// sets variables to corresponding buttons in html script
+const terms = [{term: "BACK"}, {term: "CHEST"}, {term: "HEART"}, {term: "ARM"}, {term: "EARS"}, {term: "HEAD"}, {term: "EYES"}];
+
 const termBtn = document.getElementById('term-btn');
-
 const startBtn = document.getElementById('start-btn');
 const stopBtn = document.getElementById('stop-btn');
 const recordedVideo = document.getElementById('recordedVideo');
 
-let mediaRecorder; // holds object mediaRecorder
-let recordedChunks = []; // stores recorded video in chunks
-let stream; // stores media from the camera stream, outside event listener so it can be accessed later
+let mediaRecorder;
+let recordedChunks = [];
+let stream;
 
-// add event listener (make sure the button with id="generateTermButton" exists)
 termBtn.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * terms.length); // randomly generates index in list
-    document.getElementById("term-display").innerText = terms[randomIndex].term; // outputs corresponding term
+    const randomIndex = Math.floor(Math.random() * terms.length); // randomizes list of terms in module
+    const selectedTerm = terms[randomIndex].term; // generates term from list
+    document.getElementById("term-display").innerText = selectedTerm;
+
+    // stores tested term in localStorage
+    localStorage.setItem('testedTerm', selectedTerm);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const pageUrl = window.location.href;
+    const moduleTitle = pageUrl.substring(pageUrl.lastIndexOf('/') + 1, pageUrl.lastIndexOf('.html')).replace(/-/g, ' ');
+    console.log(moduleTitle);
+
+    const buttonItems = JSON.parse(localStorage.getItem('buttonItems')) || [];
+    const moduleIndex = buttonItems.findIndex(item => item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.html' === pageUrl.substring(pageUrl.lastIndexOf('/') + 1));
+
+    if (moduleIndex !== -1) {
+        localStorage.setItem(`tested-${moduleIndex}`, 'tested');
+    }
+
+    // check if term was previously tested
+    const testedTerm = localStorage.getItem('testedTerm');
+    if (testedTerm) {
+        // remove tested term from terms array
+        const termIndex = terms.findIndex(termObj => termObj.term === testedTerm);
+        if (termIndex !== -1) {
+            terms.splice(termIndex, 1);
+        }
+
+        // clear localStorage item
+        localStorage.removeItem('testedTerm');
+    }
 });
 
 startBtn.addEventListener('click', async () => {
     console.log("Start button clicked!");
 
     try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); // get user media permissions (only need video)
-
-        recordedVideo.srcObject = stream; // set the video element to display the stream
-
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); // gets video permissions
+        recordedVideo.srcObject = stream;
         mediaRecorder = new MediaRecorder(stream);
 
         mediaRecorder.ondataavailable = event => {
@@ -34,16 +61,50 @@ startBtn.addEventListener('click', async () => {
             }
         };
 
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        mediaRecorder.onstop = async () => {
+            const blob = new Blob(recordedChunks, { type: 'video/webm' }); // uses API to store in blobs
             recordedVideo.src = URL.createObjectURL(blob);
-            recordedVideo.controls = true; // show video controls after recording
+            recordedVideo.controls = true;
             recordedChunks = [];
 
-            // stop all tracks of the stream to release the camera
+            const reader = new FileReader();
+            reader.onload = function() {
+                localStorage.setItem('recordedVideoData', reader.result);
+            };
+            reader.readAsDataURL(blob);
+
+            try {
+                const handle = await window.showSaveFilePicker({
+                    suggestedName: 'recorded-video.webm', // creates downloadable file
+                    types: [{
+                        description: 'WebM video',
+                        accept: { 'video/webm': ['.mp4'] },
+                    }],
+                });
+                const writable = await handle.createWritable();
+                await writable.write(blob);
+                await writable.close();
+
+                console.log('Video saved successfully!');
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error('Error saving video:', error);
+                }
+
+                const a = document.createElement('a');
+                a.href = recordedVideo.src;
+                a.download = 'recorded-video.webm';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(recordedVideo.src);
+            }
+
             const tracks = stream.getTracks();
             tracks.forEach(track => track.stop());
-            recordedVideo.srcObject = null; // release the camera from the video element.
+            recordedVideo.srcObject = null;
+
+            window.location.replace("./feedback.html"); // redirects to feedback page
         };
 
         mediaRecorder.onerror = (error) => {
