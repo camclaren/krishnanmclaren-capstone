@@ -1,8 +1,10 @@
 // Import Firebase SDK modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-import { getAnalytics } from "firebase/analytics";
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    connectAuthEmulator
+} from 'firebase/auth';
 
 // Your Firebase configuration (Replace with your actual Firebase project config)
 const firebaseConfig = {

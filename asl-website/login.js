@@ -10,7 +10,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     try {
         await signInWithEmailAndPassword(auth, email, password);
         console.log("✅ Login successful!");
-        window.location.href = "home.html"; // Redirect to home page
+        window.location.replace("home.html");
     } catch (error) {
         console.error("Login failed:", error);
         alert("Login failed: " + error.message);
