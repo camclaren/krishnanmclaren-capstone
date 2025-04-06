@@ -48,11 +48,6 @@ torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 torch.set_default_dtype(torch.float64)
 
-# video_path = "/Users/zzenninkim/Documents/Research/sl-wrapper-main/60085579467325-APPLE.mp4"
-# segment_txt = "/Users/zzenninkim/Documents/Research/sl-wrapper-main/60085579467325-APPLE.txt"
-# video_path = "/Users/zzenninkim/Documents/Research/asl-search-automation-main/src/tmp/video-1738703027185-948488080.mp4"
-# segment_txt = "/Users/zzenninkim/Documents/Research/asl-search-automation-main/src/tmp/video-1738703027185-948488080.txt"
-
 #Update files and paths as needed
 video_base_path = '../data/poses/'
 train_file = '../data_csv/aslcitizen_training_set.csv'
@@ -88,8 +83,9 @@ graph_args = {'num_nodes': 27, 'center': 0,
 stgcn = STGCN(in_channels=2, graph_args=graph_args, edge_importance_weighting=True)
 fc = FC(n_features=n_features, num_class=n_classes, dropout_ratio=0.05)
 pose_model = Network(encoder=stgcn, decoder=fc)
-pose_model.load_state_dict(torch.load("C:\Users\calyp\OneDrive\Documents\GitHub\krishnanmclaren-capstone\model\ASL_citizen_stgcn_weights.pt",map_location=torch.device('cpu')))
-#pose_model.cuda()
+
+#print(os.getcwd())
+pose_model.load_state_dict(torch.load(("./model/ST-GCN/ASL_citizen_stgcn_weights.pt").replace("\\",""),map_location=torch.device('cpu')))
 pose_model.to(device)
 
 pose_model.train(False)  # Set model to evaluate mode
@@ -222,19 +218,13 @@ def get_args():
 
 # 실행 부분
 if __name__ == "__main__":
-    args = get_args()
-    video_path = args.video
+    # args = get_args()
+    # video_path = args.video
+
+    #video_path = "./asl-website/recorded-videos/recorded-video.webm"
+    video_path = "C:\\Users\\calyp\\OneDrive\\Documents\\GitHub\\krishnanmclaren-capstone\\asl-website\\recorded-videos\recorded-video.webm"
     video_path = convert_to_mp4(video_path)
     print("Start ASL recognition")
-    # BLEED
-    # whole 3sec video -> video-1738166884037-814164221  (bleed 0.5 conf)
-    # segmented 3sec video -> video-1738167416805-112955033 (x conf drops)
-    #video_path = "/Users/zzenninkim/dataset/sign_stream/ALL_data/2-Ben-Voice-Identity/2-Voice-Identity.mp4"
-    #segment_txt = "/Users/zzenninkim/dataset/sign_stream/ALL_data/2-Ben-Voice-Identity/GT_segments_2-Ben-Voice-Identity.txt"
-    #video_path = "/Users/zzenninkim/Documents/Research/asl-search-automation-main/src/tmp/video-1738708702241-900666005.mp4"
-    #segment_txt = "/Users/zzenninkim/Documents/Research/asl-search-automation-main/src/tmp/video-1738708702241-900666005.txt"
-
-    video_path = convert_to_mp4(video_path)
 
     vidcap = cv2.VideoCapture(video_path)
     #fps = vidcap.get(cv2.CAP_PROP_FPS)
@@ -248,18 +238,11 @@ if __name__ == "__main__":
 
 
     # sign recognition for each segments
-    start_time = time.time()
     print("start recognizing")
-    recognition_results = recognize_segments_in_video(pose_npy_path, segments, fps)
-    end_time = time.time()
-
-    # record processing time
-    processing_time = end_time - start_time
-
-    print(f"Processing time for {segment_txt}: {processing_time:.2f} seconds")
+    recognition_results = recognize_segments_in_video(pose_npy_path, fps)
 
     # JSON results
-    output_json_path = os.path.join(segment_txt.split(".")[0] + ".json")
+    output_json_path = os.path.join(video_path.split(".")[0] + ".json")
     with open(output_json_path, 'w', encoding='utf-8') as json_file:
         json.dump(recognition_results, json_file, ensure_ascii=False, indent=4)
 
