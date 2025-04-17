@@ -84,8 +84,85 @@
             </ul>
         </div>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const buttonItems = document.querySelectorAll('.btn-item');
     
-    <script type="module" src="./home.js"></script>
+                buttonItems.forEach((item, index) => {
+                    const checkbox1 = item.querySelector('.checkbox-1');
+                    const checkbox2 = item.querySelector('.checkbox-2');
+                    const button = item.querySelector('.btn');
+    
+                    if (!button || !checkbox1) return;
+    
+                    const storageKey = `visited-${index}`;
+    
+                    if (localStorage.getItem(storageKey) === 'visited') {
+                        checkbox1.checked = true;
+                        checkbox2.disabled = false;
+                    }
+    
+                    button.addEventListener('click', function () {
+                        if (button.id !== "reset-btn") {
+                            console.log("button clicked!");
+                            checkbox1.checked = true;
+                            checkbox2.disabled = false;
+                            localStorage.setItem(storageKey, 'visited');
+    
+                            // page navigation
+                            const title = button.getAttribute('data-title');
+                            if (title) {
+                                const pageTitle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.html';
+                                window.location.href = pageTitle;
+                            }
+                        }
+                    });
+    
+                    checkbox1.addEventListener('change', async () => {
+                        if (checkbox1.checked) {
+                            checkbox2.disabled = false;
+    
+                            // Firebase save progress (optional - skip for now)
+                            /*
+                            if (typeof auth !== 'undefined') {
+                                const user = auth.currentUser;
+                                if (user) {
+                                    await saveUserProgress(user.uid, checkbox1.getAttribute('data-term'), true);
+                                }
+                            }
+                            */
+                        } else {
+                            checkbox2.disabled = true;
+                            checkbox2.checked = false;
+                        }
+                    });
+                });
+    
+                const resetButton = document.getElementById('reset-btn');
+                if (!resetButton) {
+                    console.error("Reset button not found!");
+                } else {
+                    console.log("Reset found!");
+                    resetButton.addEventListener("click", function () {
+                        localStorage.clear();
+                        document.querySelectorAll('.checkbox-1').forEach(cb => {
+                            cb.checked = false;
+                        });
+                        document.querySelectorAll('.checkbox-2').forEach(cb => {
+                            cb.checked = false;
+                            cb.disabled = true;
+                        });
+                    });
+                }
+    
+                console.log("Page loaded, script running...");
+            });
+        </script>
+    </body>
+    </html>
+    
+    <!--<script type="module" src="./home.js"></script>-->
+    <script src="home.js" defer></script>
     <script type="module" src="./header.js"></script>
 
     <footer>

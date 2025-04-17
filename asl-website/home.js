@@ -1,10 +1,5 @@
-<<<<<<< Updated upstream
 // i moved all the search functionality into a separate js file so that if we need to change it we only need to modify one file
-=======
 // home.js
-import { getAuth } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { app } from "./firebase-config"; // Adjust the path as necessary
 import { registerUser, loginUser } from "./auth";
 import { handleVideoClick } from "./videohandler";
 
@@ -82,7 +77,6 @@ function search_term() {
     }
 }
 
->>>>>>> Stashed changes
 
 document.addEventListener('DOMContentLoaded', () => {
     // handle checkbox enabling/disabling
@@ -92,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkbox1 = item.querySelector('.checkbox-1'); // "viewed"
         const checkbox2 = item.querySelector('.checkbox-2'); // "tested"
 
-<<<<<<< Updated upstream
         const button = item.querySelector('.btn');
 
         if (!button || !checkbox1) return; // makes sure both checkbox + button exist
@@ -108,10 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem(storageKey, 'visited'); // local storage of state
         });
         
-        checkbox1.addEventListener('change', () => {
-=======
-        checkbox1.addEventListener('change', async () => {
->>>>>>> Stashed changes
+        checkbox1.addEventListener('change', async() => {
             if (checkbox1.checked) {
                 checkbox2.disabled = false; // enable tested button when viewed button is checked
                 // save progress
