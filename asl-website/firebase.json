@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "krishnanmclaren-capstone",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
