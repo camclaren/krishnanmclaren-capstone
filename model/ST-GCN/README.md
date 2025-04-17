@@ -18,7 +18,7 @@ This folder contains files for the training and testing the ST-GCN model on the 
 
 Download the dataset from https://www.microsoft.com/en-us/research/project/asl-citizen/ and unzip. 
 
-To extract the MediaPipe Holistic keypoints from the videos, open pose.py. Update paths to videos, data_csvs and destination path (lines 14-16). Use the following command on the command line. It takes approximately 7 days to complete extracting all keypoints. 
+To extract the MediaPipe Holistic keypoints from the videos, open pose.py. Update paths to videos, data_csvs and destination path (lines 14-16). Use the following command on the command line. It takes approximately 7 days to complete extracting all keypoints. ST-G
 
 ```
 python3 pose.py

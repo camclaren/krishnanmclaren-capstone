@@ -6,7 +6,7 @@ import {
     connectAuthEmulator
 } from 'firebase/auth';
 
-// Your Firebase configuration (Replace with your actual Firebase project config)
+//Firebase configuration 
 const firebaseConfig = {
     apiKey: "AIzaSyBcACB5JesPs0X6Pz48yd76PIxbuy_j7q0",
     authDomain: "asl-learning-app-4a237.firebaseapp.com",
@@ -17,13 +17,13 @@ const firebaseConfig = {
     measurementId: "G-6R6RM8H0V5"
   };
 
-// Initialize Firebase
+// Initialize 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const analytics = getAnalytics(app);
 
 console.log("Firebase Config Loaded Successfully");
 
-// Export Firebase instances for use in other files
+// Export Firebase
 export { auth, storage, ref, getDownloadURL };
 

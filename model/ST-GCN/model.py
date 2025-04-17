@@ -4,7 +4,7 @@ import subprocess
 import argparse
 import ffmpeg
 
-#os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+#os.environ["CUDA_DEVICbreE_ORDER"] = "PCI_BUS_ID"
 #os.environ["CUDA_VISIBLE_DEVICES"] = '3'
 import json
 import torch
@@ -24,6 +24,8 @@ from architecture.st_gcn import STGCN
 from architecture.fc import FC
 from architecture.network import Network
 
+weight = "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/_training_from_aslcitizen_capstone002328_0.821678.pt"
+
 #Given a sorted output from the model aka ranked list, returns
 #rank of ground truth and list of other metrics
 #The different indices correspond to [DCG, Top-1 Acc, Top-5 Acc, Top-10 Acc, Top-20 Acc, MRR]
@@ -41,6 +43,24 @@ def eval_metrics(sortedArgs, label):
         return res[0], [dcg, 0, 0, 0, 1, mrr]
     else:
         return res[0], [dcg, 0, 0, 0, 0, mrr]
+
+def downsample(frames, max_frames):
+    length = frames.shape[0]
+    # Adjust FPS dynamically based on length of video
+    increment = max_frames / length 
+    if increment > 1.0:
+        increment = 1.0  
+    curr_increment = 0
+    curr_frame = 0
+    new_frames = []
+    for f in frames:
+        curr_increment += increment
+        if curr_increment > curr_frame:
+            curr_frame += 1
+            new_frames.append(f)
+    if len(new_frames) > max_frames:
+        new_frames = new_frames[:max_frames]  
+    return np.array(new_frames)
 
 torch.manual_seed(0)
 np.random.seed(0)
@@ -69,7 +89,7 @@ n_classes = len(train_ds.gloss_dict)
 test_loader = torch.utils.data.DataLoader(test_ds, batch_size=1, shuffle=True, num_workers=2, pin_memory=True)
 '''
 
-n_classes = 2731
+n_classes = 24
 
 
 #load model
@@ -85,7 +105,7 @@ fc = FC(n_features=n_features, num_class=n_classes, dropout_ratio=0.05)
 pose_model = Network(encoder=stgcn, decoder=fc)
 
 #print(os.getcwd())
-pose_model.load_state_dict(torch.load(("./model/ST-GCN/ASL_citizen_stgcn_weights.pt").replace("\\",""),map_location=torch.device('cpu')))
+pose_model.load_state_dict(torch.load((weight),map_location=torch.device('cpu')))
 pose_model.to(device)
 
 pose_model.train(False)  # Set model to evaluate mode
@@ -153,21 +173,41 @@ def read_time_segments(file_path):
 
 def recognize_segments_in_video(pose_npy_path, fps):
     result_list = []
-    df = pd.read_csv('/Users/zzenninkim/Documents/Research/sl-wrapper-main/recognition_mod/output_gloss.csv')
+    df = pd.read_csv('/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/ASL_gloss_24.csv')
     index_to_gloss = dict(zip(df["Index"], df["Gloss"]))
 
     # .npy  (T, V, C) == (num of frames, num of landmarks, XY)
     pose_data = np.load(pose_npy_path)
+    length = pose_data.shape[0]
 
-    # PyTorch tensor convert
-    pose_data = np.transpose(pose_data, (2, 0, 1))  # (T, V, C) → (C, T, V)
+    if length > 128:
+        pose_data = downsample(pose_data, 128)  # exceed 128, downsample 
+    if length < 128:
+        pose_data = np.pad(pose_data, ((0, 128 - length), (0, 0), (0, 0)))  # pad empty tensors
 
-    # use only 27 nodes from landmarks
-    keypoints_idx = [0, 2, 5, 11, 12, 13, 14, 33, 37, 38, 41, 42, 45, 46,
-                        49, 50, 53, 54, 58, 59, 62, 63, 66, 67, 70, 71, 74]
-    pose_data = pose_data[:, :, keypoints_idx]  # (C, T, V) → (C, T, 27)
+
+    # keypoints structure
+    posedata = pose_data[:, 0:33, :]  # 33 poses
+    lhdata = pose_data[:, 54:, :]  # left hand
+    rhdata = pose_data[:, 33:54, :]  # right hand
+
+
+
+    data = np.concatenate([posedata, lhdata, rhdata], axis=1)
+
+    # get key points
+    keypoints = [0, 2, 5, 11, 12, 13, 14, 33, 37, 38, 41, 42, 45, 46,
+                49, 50, 53, 54, 58, 59, 62, 63, 66, 67, 70, 71, 74]
+    data = data[:, keypoints, :]
+
+
+    data = np.transpose(data, (2, 0, 1))  # (T, V, C) → (C, T, V)  xy, frames, num of landmarks
+    #segmented_pose_data = segmented_pose_data[:, :, keypoints_idx]  # (C, T, V) → (C, T, 27)
+
+
     # change to tensor
-    inputs = torch.from_numpy(pose_data).double()
+    #inputs = torch.from_numpy(data).double()
+    inputs = torch.as_tensor(np.array(data).astype('float'))
     inputs = inputs.unsqueeze(0)  # (C, T, V) → (1, C, T, V)
 
     # inputs.shape == (N, C, T, V)  # (batch, channels, frames, keypoints)
@@ -218,12 +258,13 @@ def get_args():
 
 # 실행 부분
 if __name__ == "__main__":
-    # args = get_args()
-    # video_path = args.video
+    args = get_args()
+    video_path = args.video
 
     #video_path = "./asl-website/recorded-videos/recorded-video.webm"
-    video_path = "C:\\Users\\calyp\\OneDrive\\Documents\\GitHub\\krishnanmclaren-capstone\\asl-website\\recorded-videos\recorded-video.webm"
-    video_path = convert_to_mp4(video_path)
+    # video_path = "C:\\Users\\calyp\\OneDrive\\Documents\\GitHub\\krishnanmclaren-capstone\\asl-website\\recorded-videos\recorded-video.webm"
+    #video_path = "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/recorded-videos/recorded-video.webm"
+    #video_path = convert_to_mp4(video_path)
     print("Start ASL recognition")
 
     vidcap = cv2.VideoCapture(video_path)
