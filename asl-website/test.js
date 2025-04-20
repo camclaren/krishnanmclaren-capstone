@@ -11,6 +11,26 @@ let mediaRecorder;
 let recordedChunks = [];
 let stream;
 
+async function executePythonScript(blob) {
+    const formData = new FormData();
+    formData.append('video', blob, 'recorded-video.webm');
+
+    try {
+        const response = await fetch('http://localhost:8000/process-video', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        console.log("Backend response:", result);
+
+        // store result for access in feedback page
+        localStorage.setItem('recognitionResult', JSON.stringify(result));
+
+    } catch (error) {
+        console.error("Failed to send video to backend:", error);
+    }
+}
 termBtn.addEventListener('click', () => {
     const randomIndex = Math.floor(Math.random() * terms.length); // randomizes list of terms in module
     const selectedTerm = terms[randomIndex].term; // generates term from list
@@ -72,6 +92,16 @@ startBtn.addEventListener('click', async () => {
                 localStorage.setItem('recordedVideoData', reader.result);
             };
             reader.readAsDataURL(blob);
+
+            await executePythonScript(blob);
+
+            if (stream) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+            }
+            recordedVideo.srcObject = null;
+        
+            window.location.replace("./feedback.html");
 
             try {
                 const handle = await window.showSaveFilePicker({
