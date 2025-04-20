@@ -1,4 +1,4 @@
-import {terms} from './contstants.js';
+import {terms} from './constants.js';
 
 
 document.getElementById('term-title').innerText = "Good job!";
