@@ -5,6 +5,7 @@ const terms = [{term: "BACK"}, {term: "CHEST"}, {term: "HEART"}, {term: "ARM"}, 
 const termBtn = document.getElementById('term-btn');
 const startBtn = document.getElementById('start-btn');
 const stopBtn = document.getElementById('stop-btn');
+const submitBtn = document.getElementById('submit-btn');
 const recordedVideo = document.getElementById('recordedVideo');
 
 let mediaRecorder;
@@ -83,7 +84,7 @@ startBtn.addEventListener('click', async () => {
 
         mediaRecorder.onstop = async () => {
             const blob = new Blob(recordedChunks, { type: 'video/webm' }); // uses API to store in blobs
-            recordedVideo.src = URL.createObjectURL(blob);
+            recordedVideo.src = URL.createObjectURL(blob); // creates temp URL for user to view playback
             recordedVideo.controls = true;
             recordedChunks = [];
 
@@ -104,7 +105,7 @@ startBtn.addEventListener('click', async () => {
             window.location.replace("./feedback.html");
 
             try {
-                const handle = await window.showSaveFilePicker({
+                const handle = await window.showSaveFilePicker({ // user is prompted with where they would like to save file
                     suggestedName: 'recorded-video.webm', // creates downloadable file
                     types: [{
                         description: 'WebM video',
@@ -115,12 +116,6 @@ startBtn.addEventListener('click', async () => {
                 await writable.write(blob);
                 await writable.close();
 
-                console.log('Video saved successfully!');
-            } catch (error) {
-                if (error.name !== 'AbortError') {
-                    console.error('Error saving video:', error);
-                }
-
                 const a = document.createElement('a');
                 a.href = recordedVideo.src;
                 a.download = 'recorded-video.webm';
@@ -128,13 +123,17 @@ startBtn.addEventListener('click', async () => {
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(recordedVideo.src);
+
+                console.log('Video saved successfully!');
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error('Error saving video:', error);
+                }
             }
 
             const tracks = stream.getTracks();
             tracks.forEach(track => track.stop());
             recordedVideo.srcObject = null;
-
-            window.location.replace("./feedback.html"); // redirects to feedback page
         };
 
         mediaRecorder.onerror = (error) => {
@@ -161,3 +160,12 @@ stopBtn.addEventListener('click', () => {
 });
 
 stopBtn.disabled = true;
+
+submitBtn.addEventListener('click', async () => {
+    console.log("Submit button clicked!");
+
+    // call Python function here
+    executePythonScript()
+
+    window.location.replace("./feedback.html");
+});

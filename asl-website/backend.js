@@ -19,7 +19,7 @@ const app = express();
 const upload = multer({ storage: storage });
 
 // end point of processing video 
-app.post("/process-video", upload.single("video"), async (req, res) => {
+app.post("/recorded-video.webm", upload.single("video"), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: "No video uploaded." });
   }
