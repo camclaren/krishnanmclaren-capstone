@@ -264,7 +264,7 @@ if __name__ == "__main__":
     #video_path = "./asl-website/recorded-videos/recorded-video.webm"
     # video_path = "C:\\Users\\calyp\\OneDrive\\Documents\\GitHub\\krishnanmclaren-capstone\\asl-website\\recorded-videos\recorded-video.webm"
     #video_path = "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/recorded-videos/recorded-video.webm"
-    #video_path = convert_to_mp4(video_path)
+    video_path = convert_to_mp4(video_path)
     print("Start ASL recognition")
 
     vidcap = cv2.VideoCapture(video_path)

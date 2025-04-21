@@ -54,7 +54,7 @@ app.post("/process-video", upload.single("video"), async (req, res) => {
     `${path.basename(videoPath, path.extname(videoPath))}.json`
   );
 
-  const pythonProcess = spawn("python3", [
+  const pythonProcess = spawn("/opt/anaconda3/envs/backend/bin/python", [
     "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/model/ST-GCN/model.py",
     "--video",
     videoPath,

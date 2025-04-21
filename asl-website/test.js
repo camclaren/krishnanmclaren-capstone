@@ -30,7 +30,7 @@ fetch('http://localhost:3000/auth')
   .then(data => console.log('Video handler response:', data))
   .catch(err => console.error('Video handler error:', err));
 
-async function executePythonScript(blob) {
+async function executePythonScript() {
     // Safety check to make sure there's an actual video blob
     if (!blob || blob.size === 0) {
         console.warn("No video data available. Skipping backend call.");
