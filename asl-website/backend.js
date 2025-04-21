@@ -8,14 +8,22 @@ const cors = require("cors");
 const app = express();
 app.use(cors()); // Allow requests from frontend
 
-app.post("/auth", (req, res) => {
-  // handle auth request
-  res.json({ message: "auth route hit" });
+app.get('/auth', (req, res) => {
+  res.json({ success: true, message: 'Auth route works!' });
 });
 
-app.post("/videohandler", (req, res) => {
-  // handle video handler
-  res.json({ message: "videohandler route hit" });
+app.get('/videohandler', (req, res) => {
+  res.json({ success: true, message: 'Video handler works!' });
+});
+
+app.get('/videohandler', (req, res) => {
+  const filePath = path.join(__dirname, 'asl-website', 'recorded_video.mp4'); // or .webm etc
+
+  if (fs.existsSync(filePath)) {
+      res.json({ success: true, message: 'Video file found.' });
+  } else {
+      res.status(404).json({ success: false, message: 'No video file yet.' });
+  }
 });
 
 // File storage config

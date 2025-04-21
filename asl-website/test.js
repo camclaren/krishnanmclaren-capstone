@@ -9,42 +9,62 @@ const recordedVideo = document.getElementById('recordedVideo');
 let mediaRecorder;
 let recordedChunks = [];
 let stream;
-fetch('http://localhost:8000/auth')
-    .then(res => res.json())
-    .then(data => console.log('Auth response:', data))
-    .catch(err => console.error('Auth error:', err));
 
-fetch('http://localhost:8000/videohandler')
-    .then(res => res.json())
-    .then(data => console.log('Video handler response:', data))
-    .catch(err => console.error('Video handler error:', err));
+fetch('http://localhost:3000/auth')
+  .then(async res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => console.log('Auth response:', data))
+  .catch(err => console.error('Auth error:', err));
+
+  fetch('http://localhost:3000/videohandler')
+  .then(async res => {
+    if (!res.ok) {
+      throw new Error(`HTTP error ${res.status}`);
+    }
+    return res.json();
+  })
+  .then(data => console.log('Video handler response:', data))
+  .catch(err => console.error('Video handler error:', err));
 
 async function executePythonScript(blob) {
+    // Safety check to make sure there's an actual video blob
+    if (!blob || blob.size === 0) {
+        console.warn("No video data available. Skipping backend call.");
+        return;
+    }
+
     const formData = new FormData();
     formData.append('video', blob, 'recorded-video.webm');
 
     try {
-        const response = await fetch('http://localhost:8000/process-video', {
+        const response = await fetch('http://localhost:3000/process-video', {
             method: 'POST',
             body: formData
         });
 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const result = await response.json();
         console.log("Backend response:", result);
 
-        // store result for access in feedback page
+        // Store result for access in feedback page
         localStorage.setItem('recognitionResult', JSON.stringify(result));
 
     } catch (error) {
         console.error("Failed to send video to backend:", error);
     }
 }
-termBtn.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * terms.length); // randomizes list of terms in module
-    const selectedTerm = terms[randomIndex].term; // generates term from list
-    document.getElementById("term-display").innerText = selectedTerm;
 
-    // stores tested term in localStorage
+termBtn.addEventListener('click', () => {
+    const randomIndex = Math.floor(Math.random() * terms.length);
+    const selectedTerm = terms[randomIndex].term;
+    document.getElementById("term-display").innerText = selectedTerm;
     localStorage.setItem('testedTerm', selectedTerm);
 });
 
@@ -60,16 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(`tested-${moduleIndex}`, 'tested');
     }
 
-    // check if term was previously tested
     const testedTerm = localStorage.getItem('testedTerm');
     if (testedTerm) {
-        // remove tested term from terms array
         const termIndex = terms.findIndex(termObj => termObj.term === testedTerm);
         if (termIndex !== -1) {
             terms.splice(termIndex, 1);
         }
-
-        // clear localStorage item
         localStorage.removeItem('testedTerm');
     }
 });
@@ -78,7 +94,7 @@ startBtn.addEventListener('click', async () => {
     console.log("Start button clicked!");
 
     try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); // gets video permissions
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
         recordedVideo.srcObject = stream;
         mediaRecorder = new MediaRecorder(stream);
 
@@ -90,8 +106,8 @@ startBtn.addEventListener('click', async () => {
         };
 
         mediaRecorder.onstop = async () => {
-            const blob = new Blob(recordedChunks, { type: 'video/webm' }); // uses API to store in blobs
-            recordedVideo.src = URL.createObjectURL(blob); // creates temp URL for user to view playback
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+            recordedVideo.src = URL.createObjectURL(blob);
             recordedVideo.controls = true;
             recordedChunks = [];
 
@@ -100,10 +116,10 @@ startBtn.addEventListener('click', async () => {
                 localStorage.setItem('recordedVideoData', reader.result);
             };
             reader.readAsDataURL(blob);
-           
+
             try {
-                const handle = await window.showSaveFilePicker({ // user is prompted with where they would like to save file
-                    suggestedName: 'recorded-video.webm', // creates downloadable file
+                const handle = await window.showSaveFilePicker({
+                    suggestedName: 'recorded-video.webm',
                     types: [{
                         description: 'WebM video',
                         accept: { 'video/webm': ['.mp4'] },
@@ -113,21 +129,12 @@ startBtn.addEventListener('click', async () => {
                 await writable.write(blob);
                 await writable.close();
 
-                const a = document.createElement('a');
-                a.href = recordedVideo.src;
-                a.download = 'recorded-video.webm';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(recordedVideo.src);
-
                 console.log('Video saved successfully!');
             } catch (error) {
                 if (error.name !== 'AbortError') {
                     console.error('Error saving video:', error);
                 }
             }
-
 
             await executePythonScript(blob);
 
@@ -136,12 +143,7 @@ startBtn.addEventListener('click', async () => {
                 tracks.forEach(track => track.stop());
             }
             recordedVideo.srcObject = null;
-        
-            window.location.replace("./feedback.html");
-
-            const tracks = stream.getTracks();
-            tracks.forEach(track => track.stop());
-            recordedVideo.srcObject = null;
+          //  window.location.replace("./feedback.html");
         };
 
         mediaRecorder.onerror = (error) => {
@@ -159,7 +161,7 @@ startBtn.addEventListener('click', async () => {
 });
 
 stopBtn.addEventListener('click', () => {
-    console.log("Stop button clicked!")
+    console.log("Stop button clicked!");
     if (mediaRecorder && mediaRecorder.state === "recording") {
         mediaRecorder.stop();
         startBtn.disabled = false;
@@ -169,18 +171,24 @@ stopBtn.addEventListener('click', () => {
 
 stopBtn.disabled = true;
 
-document.addEventListener('DOMContentLoaded', async() => {
+submitBtn.addEventListener('click', async () => {
+    console.log("Submit button clicked!");
 
-    const submitBtn = document.getElementById('submit-btn');
-    if (submitBtn) {
-        submitBtn.addEventListener('click', async () => {
-            console.log("Submit button clicked!");
+    const result = await executePythonScript();
 
-            await executePythonScript(); // make sure to await if it's async
+    if (result && result.success) {
+        try {
+            const response = await fetch('http://localhost:3000/videohandler');
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+            const data = await response.json();
+            console.log("Video handler response:", data);
 
             window.location.replace("./feedback.html");
-        });
+        } catch (err) {
+            console.error("Video handler error:", err);
+        }
     } else {
-        console.error("Submit button not found!");
+        console.error("Python script did not complete successfully.");
     }
 });
