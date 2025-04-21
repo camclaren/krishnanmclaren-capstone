@@ -24,7 +24,7 @@ from architecture.st_gcn import STGCN
 from architecture.fc import FC
 from architecture.network import Network
 
-weight = "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/_training_from_aslcitizen_capstone002328_0.821678.pt"
+weight = "C:\\Users\\calyp\\OneDrive\\Desktop\\GitHub\\krishnanmclaren-capstone\\asl-website\\_training_from_aslcitizen_capstone002328_0.821678.pt"
 
 #Given a sorted output from the model aka ranked list, returns
 #rank of ground truth and list of other metrics
@@ -173,7 +173,7 @@ def read_time_segments(file_path):
 
 def recognize_segments_in_video(pose_npy_path, fps):
     result_list = []
-    df = pd.read_csv('/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/ASL_gloss_24.csv')
+    df = pd.read_csv('C:\\Users\\calyp\\OneDrive\\Desktop\\GitHub\\krishnanmclaren-capstone\\asl-website\\ASL_gloss_24.csv')
     index_to_gloss = dict(zip(df["Index"], df["Gloss"]))
 
     # .npy  (T, V, C) == (num of frames, num of landmarks, XY)

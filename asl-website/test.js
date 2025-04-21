@@ -1,71 +1,23 @@
-const terms = [{term: "BACK"}, {term: "CHEST"}, {term: "HEART"}, {term: "ARM"}, {term: "EARS"}, {term: "HEAD"}, {term: "EYES"}];
+const terms = [{term: "ITCH"}, {term: "EARS"}, {term: "NOSE"}, {term: "BLOOD"}];
 
 const termBtn = document.getElementById('term-btn');
 const startBtn = document.getElementById('start-btn');
 const stopBtn = document.getElementById('stop-btn');
 const submitBtn = document.getElementById('submit-btn');
+console.log("submit button element:", submitBtn);
 const recordedVideo = document.getElementById('recordedVideo');
 
 let mediaRecorder;
 let recordedChunks = [];
 let stream;
 
-fetch('http://localhost:3000/auth')
-  .then(async res => {
-    if (!res.ok) {
-      throw new Error(`HTTP error ${res.status}`);
-    }
-    return res.json();
-  })
-  .then(data => console.log('Auth response:', data))
-  .catch(err => console.error('Auth error:', err));
-
-  fetch('http://localhost:3000/videohandler')
-  .then(async res => {
-    if (!res.ok) {
-      throw new Error(`HTTP error ${res.status}`);
-    }
-    return res.json();
-  })
-  .then(data => console.log('Video handler response:', data))
-  .catch(err => console.error('Video handler error:', err));
-
-async function executePythonScript() {
-    // Safety check to make sure there's an actual video blob
-    if (!blob || blob.size === 0) {
-        console.warn("No video data available. Skipping backend call.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('video', blob, 'recorded-video.webm');
-
-    try {
-        const response = await fetch('http://localhost:3000/process-video', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        console.log("Backend response:", result);
-
-        // Store result for access in feedback page
-        localStorage.setItem('recognitionResult', JSON.stringify(result));
-
-    } catch (error) {
-        console.error("Failed to send video to backend:", error);
-    }
-}
+console.log("test.js is loaded");
 
 termBtn.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * terms.length);
-    const selectedTerm = terms[randomIndex].term;
+    const randomIndex = Math.floor(Math.random() * terms.length); // randomizes list of terms in module
+    const selectedTerm = terms[randomIndex].term; // generates term from list
     document.getElementById("term-display").innerText = selectedTerm;
-    localStorage.setItem('testedTerm', selectedTerm);
+    localStorage.setItem('testedTerm', selectedTerm);  
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -136,14 +88,9 @@ startBtn.addEventListener('click', async () => {
                 }
             }
 
-            await executePythonScript(blob);
-
-            if (stream) {
-                const tracks = stream.getTracks();
-                tracks.forEach(track => track.stop());
-            }
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
             recordedVideo.srcObject = null;
-          //  window.location.replace("./feedback.html");
         };
 
         mediaRecorder.onerror = (error) => {
@@ -172,23 +119,36 @@ stopBtn.addEventListener('click', () => {
 stopBtn.disabled = true;
 
 submitBtn.addEventListener('click', async () => {
-    console.log("Submit button clicked!");
+    console.log("submitted!");
+    // hardcoded filename
+    const filename = "recorded-video.webm";
+    console.log("sending filename to server:", filename);
+  
+    try {
+      const response = await fetch("http://localhost:3000/process-video", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: filename }),
+      });
 
-    const result = await executePythonScript();
+      console.log("response received");
+  
+      if (!response.ok) {
+        console.log(`Error: ${response.statusText}`);
+        return;
+      }
+  
+      // trigger file download automatically
+      const blob = await response.blob();
+      const link = document.createElement('a');
 
-    if (result && result.success) {
-        try {
-            const response = await fetch('http://localhost:3000/videohandler');
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-            const data = await response.json();
-            console.log("Video handler response:", data);
-
-            window.location.replace("./feedback.html");
-        } catch (err) {
-            console.error("Video handler error:", err);
-        }
-    } else {
-        console.error("Python script did not complete successfully.");
+      link.href = URL.createObjectURL(blob);
+      link.download = filename.replace(".webm", ".json");  // set download filename
+      link.click();  // simulate click to download file
+  
+    } catch (error) {
+      console.log(`Request failed: ${error.message}`);
     }
+
+    // window.location.replace("./feedback.html");
 });
