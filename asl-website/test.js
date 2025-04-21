@@ -1,5 +1,3 @@
-// import { terms } from './constants.js';
-
 const terms = [{term: "BACK"}, {term: "CHEST"}, {term: "HEART"}, {term: "ARM"}, {term: "EARS"}, {term: "HEAD"}, {term: "EYES"}];
 
 const termBtn = document.getElementById('term-btn');
@@ -11,6 +9,15 @@ const recordedVideo = document.getElementById('recordedVideo');
 let mediaRecorder;
 let recordedChunks = [];
 let stream;
+fetch('http://localhost:8000/auth')
+    .then(res => res.json())
+    .then(data => console.log('Auth response:', data))
+    .catch(err => console.error('Auth error:', err));
+
+fetch('http://localhost:8000/videohandler')
+    .then(res => res.json())
+    .then(data => console.log('Video handler response:', data))
+    .catch(err => console.error('Video handler error:', err));
 
 async function executePythonScript(blob) {
     const formData = new FormData();
@@ -93,17 +100,7 @@ startBtn.addEventListener('click', async () => {
                 localStorage.setItem('recordedVideoData', reader.result);
             };
             reader.readAsDataURL(blob);
-
-            await executePythonScript(blob);
-
-            if (stream) {
-                const tracks = stream.getTracks();
-                tracks.forEach(track => track.stop());
-            }
-            recordedVideo.srcObject = null;
-        
-            window.location.replace("./feedback.html");
-
+           
             try {
                 const handle = await window.showSaveFilePicker({ // user is prompted with where they would like to save file
                     suggestedName: 'recorded-video.webm', // creates downloadable file
@@ -130,6 +127,17 @@ startBtn.addEventListener('click', async () => {
                     console.error('Error saving video:', error);
                 }
             }
+
+
+            await executePythonScript(blob);
+
+            if (stream) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+            }
+            recordedVideo.srcObject = null;
+        
+            window.location.replace("./feedback.html");
 
             const tracks = stream.getTracks();
             tracks.forEach(track => track.stop());
@@ -161,11 +169,18 @@ stopBtn.addEventListener('click', () => {
 
 stopBtn.disabled = true;
 
-submitBtn.addEventListener('click', async () => {
-    console.log("Submit button clicked!");
+document.addEventListener('DOMContentLoaded', async() => {
 
-    // call Python function here
-    executePythonScript()
+    const submitBtn = document.getElementById('submit-btn');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', async () => {
+            console.log("Submit button clicked!");
 
-    window.location.replace("./feedback.html");
+            await executePythonScript(); // make sure to await if it's async
+
+            window.location.replace("./feedback.html");
+        });
+    } else {
+        console.error("Submit button not found!");
+    }
 });

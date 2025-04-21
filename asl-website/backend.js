@@ -3,84 +3,93 @@ const multer = require("multer");
 const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
-//const path = require("path");
+const cors = require("cors");
+
+const app = express();
+app.use(cors()); // Allow requests from frontend
+
+app.post("/auth", (req, res) => {
+  // handle auth request
+  res.json({ message: "auth route hit" });
+});
+
+app.post("/videohandler", (req, res) => {
+  // handle video handler
+  res.json({ message: "videohandler route hit" });
+});
+
+// File storage config
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/recorded-videos"); // directory for save files
+    cb(null, "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/recorded-videos");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const originalName = file.originalname; // file name
-    const extension = originalName.substring(originalName.lastIndexOf(".")); // get file format
-    cb(null, `${file.fieldname}-${uniqueSuffix}${extension}`); // file name
+    const extension = path.extname(file.originalname);
+    cb(null, `${file.fieldname}-${uniqueSuffix}${extension}`);
   },
 });
-const app = express();
+
 const upload = multer({ storage: storage });
 
-// end point of processing video 
-app.post("/recorded-video.webm", upload.single("video"), async (req, res) => {
+// endpoint matching frontend: http://localhost:8000/process-video
+app.post("/process-video", upload.single("video"), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: "No video uploaded." });
   }
 
-  console.log("File uploaded successfully:", req.file);
-  const videoPath = req.file.path; // save in temp dir
+  console.log("File uploaded successfully:", req.file.path);
+  const videoPath = req.file.path;
 
-
-  // create JSON file path (save in the same dir) 
-  const path = require("path"); // path module
   const jsonPath = path.join(
-  path.dirname(videoPath), // video file dir
-  `${path.basename(videoPath, path.extname(videoPath))}.json`
-);
+    path.dirname(videoPath),
+    `${path.basename(videoPath, path.extname(videoPath))}.json`
+  );
 
+  const pythonProcess = spawn("python3", [
+    "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/model/ST-GCN/model.py",
+    "--video",
+    videoPath,
+  ]);
 
+  pythonProcess.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
 
-  // Run Python Script
-  let pythonProcess;
-  if (req.body.scriptName === "Submit") {
-      pythonProcess = spawn("python3", [
-        "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/model/ST-GCN/model.py",
-        "--video",
-        videoPath,
-      ]);
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
 
-  }
-
-
-
-  // handle python process exit
   pythonProcess.on("close", (code) => {
     if (code !== 0) {
-      return res
-        .status(500)
-        .json({ error: "Python script failed to process the video." });
+      return res.status(500).json({ error: "Python script failed to process the video." });
     }
 
-    console.log(`Attempting to read JSON file at: ${jsonPath}`);
-    // read JSON result
+    console.log(`Reading JSON result from: ${jsonPath}`);
     fs.readFile(jsonPath, "utf8", (err, data) => {
       if (err) {
-        console.error("Error Reading JSON File:", err);
-        return res
-          .status(500)
-          .json({ error: "Failed to read the output JSON file." });
-
-      }else{
-        console.log("JSON File Data:", data);
+        console.error("Error reading JSON file:", err);
+        return res.status(500).json({ error: "Failed to read output JSON file." });
       }
-      res.json(JSON.parse(data)); // return results
-    });
 
+      try {
+        const parsedData = JSON.parse(data);
+        console.log("Parsed JSON:", parsedData);
+        res.json(parsedData);
+      } catch (parseError) {
+        console.error("JSON Parse Error:", parseError);
+        res.status(500).json({ error: "Error parsing JSON result." });
+      }
+    });
   });
 });
 
-  // to check the root url
+// Test root
 app.get("/", (req, res) => {
   res.send("Server is running and ready to receive requests!");
 });
+
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
