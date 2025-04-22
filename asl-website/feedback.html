@@ -15,42 +15,46 @@
             <a href="test.html">Test</a>
         </nav>
     </header>
-    
-    <h2>Recognition Result</h2>
-    <div id="result-display">
-      <p>Loading result...</p>
+
+    <h2 class="results-title">Recognition Results</h2>
+
+    <div class="prediction-container">
+        <div class="prediction-block" id="prediction-1">
+            <p class="prediction-label">(prediction 1)</p>
+            <video controls></video>
+        </div>
+        <div class="prediction-block" id="prediction-2">
+            <p class="prediction-label">(prediction 2)</p>
+            <video controls></video>
+        </div>
+        <div class="prediction-block" id="prediction-3">
+            <p class="prediction-label">(prediction 3)</p>
+            <video controls></video>
+        </div>
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const rawResult = localStorage.getItem('recognitionResult');
-        
+            const predictions = rawResult ? JSON.parse(rawResult)[0] : [];
+    
             if (rawResult) {
-                const parsedResult = JSON.parse(rawResult);
-        
-                // The structure of the JSON is [[[ [label, confidence], [label, confidence], ... ]]]
-                const predictions = parsedResult[0]; // Grab the innermost array
-        
-                // Sort predictions by confidence descending
-                const topThree = predictions
-                    .sort((a, b) => b[1] - a[1])  // Compare confidence values
-                    .slice(0, 3);                 // Get top 3
-        
-                // Format the results nicely
-                const displayText = topThree.map(
-                    ([label, confidence], index) =>
-                        `${index + 1}. ${label} (Confidence: ${(confidence * 100).toFixed(2)}%)`
-                ).join('\n');
-        
-                // Update the result display
-                document.getElementById('result-display').innerText = displayText;
-        
+                predictions
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 3)
+                    .forEach(([label, confidence], index) => {
+                        const block = document.getElementById(`prediction-${index + 1}`);
+                        if (block) {
+                            block.querySelector('.prediction-label').innerText =
+                                `${label} (Confidence: ${(confidence * 100).toFixed(2)}%)`;
+                            block.querySelector('video').src = './ASL_Videos'; // Change path if needed
+                        }
+                    });
             } else {
                 document.getElementById('result-display').innerText = "No recognition result found.";
             }
         });
-        </script>
-        
+    </script>
     <ul>
         <a href="test.html" class="btn-item">Next</a>
     </ul>
