@@ -150,5 +150,5 @@ submitBtn.addEventListener('click', async () => {
       console.log(`Request failed: ${error.message}`);
     }
 
-    // window.location.replace("./feedback.html");
+    window.location.replace("./feedback.html");
 });

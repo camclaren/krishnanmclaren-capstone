@@ -24,6 +24,8 @@ from architecture.st_gcn import STGCN
 from architecture.fc import FC
 from architecture.network import Network
 
+print("MODEL SCRIPT STARTED")
+
 weight = "C:\\Users\\calyp\\OneDrive\\Desktop\\GitHub\\krishnanmclaren-capstone\\asl-website\\_training_from_aslcitizen_capstone002328_0.821678.pt"
 
 #Given a sorted output from the model aka ranked list, returns

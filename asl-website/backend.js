@@ -98,13 +98,9 @@ pythonProcess.on("close", (code) => {
     if (err) {
       console.error("Error reading JSON file:", err);
       return res.status(500).json({ error: "Failed to read output JSON file." });
-    } else {
-      console.log("JSON File Data:", data);
     }
     
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Content-Disposition", `attachment; filename=${path.basename(jsonPath)}`);
-    res.send(data);
+    console.log("JSON File Data:", data);
   });
 
     try {
