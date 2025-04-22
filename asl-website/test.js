@@ -120,35 +120,34 @@ stopBtn.disabled = true;
 
 submitBtn.addEventListener('click', async () => {
     console.log("submitted!");
-    // hardcoded filename
     const filename = "recorded-video.webm";
     console.log("sending filename to server:", filename);
   
     try {
-      const response = await fetch("http://localhost:3000/process-video", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ filename: filename }),
-      });
+        const response = await fetch("http://localhost:3000/process-video", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ filename: filename }),
+        });
 
-      console.log("response received");
-  
-      if (!response.ok) {
-        console.log(`Error: ${response.statusText}`);
-        return;
-      }
-  
-      // trigger file download automatically
-      const blob = await response.blob();
-      const link = document.createElement('a');
+        console.log("response received");
 
-      link.href = URL.createObjectURL(blob);
-      link.download = filename.replace(".webm", ".json");  // set download filename
-      link.click();  // simulate click to download file
-  
+        if (!response.ok) {
+            console.log(`Error: ${response.statusText}`);
+            return;
+        }
+
+        // Parse JSON result instead of downloading it
+        const resultJson = await response.json();
+        console.log("Parsed JSON result:", resultJson);
+
+        // Save it to localStorage for feedback.html to read
+        localStorage.setItem("recognitionResult", JSON.stringify(resultJson));
+
+        // Redirect to feedback page after saving result
+        window.location.replace("./feedback.html");
+
     } catch (error) {
-      console.log(`Request failed: ${error.message}`);
+        console.log(`Request failed: ${error.message}`);
     }
-
-    // window.location.replace("./feedback.html");
 });

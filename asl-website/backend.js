@@ -8,7 +8,7 @@ const path = require("path");
 // File storage config
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "C:\\Users\\calyp\\OneDrive\\Desktop\\GitHub\\krishnanmclaren-capstone\\asl-website\\recorded-videos"); // directory for save files
+    cb(null, "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/recorded-videos"); // directory for save files
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 const app = express(); // creates webapp
 app.use(cors());
 app.use(express.json());
-// const upload = multer({ storage: storage }); // initializes upload setup
+const upload = multer({ storage: storage }); // initializes upload setup
 
 // end point of processing video 
 app.post("/process-video", express.json(), async (req, res) => {
@@ -34,8 +34,8 @@ app.post("/process-video", express.json(), async (req, res) => {
     return res.status(400).json({error: "no filename provided"});
   }
 
-  const videoDir = "C:\\Users\\calyp\\OneDrive\\Desktop\\GitHub\\krishnanmclaren-capstone\\asl-website\\recorded-videos";
-  const videoPath = path.join(videoDir, "\\recorded-video.webm");
+  const videoDir = "/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/asl-website/recorded-videos";
+  const videoPath = path.join(videoDir, "recorded-video.webm");
 /**
   // create JSON file path (save in the same dir) 
   // const path = require("path"); // path module
@@ -69,10 +69,35 @@ app.post("/process-video", express.json(), async (req, res) => {
 
 **/
 
+//!!
+app.post('/recognize', upload.single('video'), (req, res) => {
+  const python = spawn('python3', ['model.py', '--video', req.file.path]);
+
+  let resultData = '';
+  python.stdout.on('data', (data) => {
+    resultData += data.toString();
+  });
+
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  python.on('close', (code) => {
+    try {
+      const resultJson = JSON.parse(resultData);
+      res.json(resultJson); // or wrap in { predictions: resultJson }
+    } catch (err) {
+      console.error("JSON parse error:", err);
+      res.status(500).json({ error: "Failed to parse recognition result" });
+    }
+  });
+});
+
+//!!
+
 console.log("starting python process");
 
-const pythonProcess = spawn("C:\\Users\\calyp\\anaconda3\\envs\\backend\\python.exe", [
-  "C:\\Users\\calyp\\OneDrive\\Desktop\\GitHub\\krishnanmclaren-capstone\\model\\ST-GCN\\model.py",
+const pythonProcess = spawn("/opt/anaconda3/envs/backend/bin/python", ["/Users/madhangikrishnan/Documents/GitHub/krishnanmclaren-capstone/model/ST-GCN/model.py",
   "--video", videoPath,
 ]);
 
@@ -91,7 +116,7 @@ pythonProcess.on("close", (code) => {
     return res.status(500).json({ error: "Python script failed to process the video." });
   }
 
-  const jsonPath = path.join(videoDir, "\\recorded-video.json");
+  const jsonPath = path.join(videoDir, "recorded-video.json");
 
   console.log(`Reading JSON result from: ${jsonPath}`);
   fs.readFile(jsonPath, "utf8", (err, data) => {
